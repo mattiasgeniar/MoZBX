@@ -1,0 +1,25 @@
+.icon_list {
+	border: 0px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.severity_1 {
+	/* Information */
+	color: #204709;
+}
+
+.severity_2 {
+	/* Warning */
+	color: #F7A400;
+}
+
+.severity_3{
+	/* Average */
+	color: #FF1A00;
+}
+
+.severity_4 {
+	/* High */
+	color: #BD0A02;
+}
