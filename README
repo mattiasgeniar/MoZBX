@@ -1,5 +1,6 @@
 This project is intended as an extra application, built on top of your current Zabbix set-up.
 
-It connects to your Zabbix API URL, using your credentials. Afterwards, all settings are pulled from your Zabbix.
-
+It connects to your Zabbix API URL, using your Zabbix credentials. Afterwards, all settings are pulled from your Zabbix.
 This means any change you make in your Zabbix, will be transported to the Mobile ZBX application.
+
+If you're worried about security implications, please read more on the FAQ at http://www.mozbx.net.
