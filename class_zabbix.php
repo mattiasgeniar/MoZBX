@@ -1,4 +1,15 @@
 <?php
+	/* ##################################################################
+	##
+	##
+	##	Originally developed by Mattias Geniar
+	##	for the Mobile ZBX project: www.MoZBX.net
+	##
+	##	Github: http://github.com/mattiasgeniar/MoZBX
+	##
+	##
+	####################################################################*/
+
 
 	class Zabbix {
 		/* ##########################################################

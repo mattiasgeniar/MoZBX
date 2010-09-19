@@ -130,8 +130,6 @@
 						if ($arrSettings["showEmptyHostgroups"] || $hostCount > 0)
 							echo "<li><a href=\"". $linkHostgroup ."\"><img src=\"images/hosts.png\" class=\"icon_list\">". $groupobject["name"] ."</a> <small class=\"counter\">". $hostCount ."</small></li>";
 						
-						// Get all hosts
-						//require_once("hostitems_summary.php");
 					}
 				} else {
 					echo "Sorry, you don't have access to any groups.<br />";

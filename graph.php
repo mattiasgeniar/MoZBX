@@ -43,7 +43,7 @@
 			<a class="back" href="#">Back</a>
 		</div>
 
-		<img src="graph_img.php?fileid=<?=$fileid?>" />
+		<img src="graph_img.php?fileid=<?=$fileid?>" width="200" />
 	</div>
 <?php
 	} else {
