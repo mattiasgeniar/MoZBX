@@ -322,6 +322,7 @@
 												"only_true"		=> 1,
 												"select_hosts" 	=> "extend",
 												"min_severity"	=> $minimalSeverity,
+												"filter" => array("value" => 1),
 										)
 									);
 			
@@ -508,7 +509,9 @@
 		}
 		
 		public function sortHostgroupsByName ($arrHostgroups) {
-			uasort($arrHostgroups, "arrSortFunctionHostgroupsName");
+			if (is_array($arrHostgroups))
+				uasort($arrHostgroups, "arrSortFunctionHostgroupsName");
+			
 			return $arrHostgroups;
 		}
 		
