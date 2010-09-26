@@ -132,7 +132,7 @@
 						
 					}
 				} else {
-					echo "Sorry, you don't have access to any groups.<br />";
+					echo "Sorry, you don't seem have access to any hostgroups.<br /><br />Does the user with which you login, have <b>API Access</b> enabled in the Zabbix <b>User Administration</b> screen?";
 				}
 			?>
 			</ul>
@@ -161,6 +161,8 @@
 								);
 						}
 					}
+					
+					asort($arrSortedTriggers);
 				?>
 				<ul class="rounded">					
 				<?php
@@ -189,7 +191,7 @@
 				</ul>
 				<?php
 				} else {
-					echo "Nothing active.";
+					echo "<ul class=\"rounded\">There don't seem to be any active triggers.</ul>";
 				}
 			?>
     	</div>
