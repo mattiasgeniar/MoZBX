@@ -417,24 +417,38 @@
 		
 		}
 		
-		public function getGraphImageById ($graphid, $fileid) {
+		public function getGraphImageById ($graphid) {
 			// First: we forge our cookies Zabbix would normally create.
 			//$strCookie 			= $this->zabbix_hostname ."     FALSE   /       FALSE   0       zbx_sessionid   ". $this->auth_token;
 			
-			// Unfortunately, "wget" can only read cookies from a file, so we have to save it first to local storage (-_-)			
-			$filename_cookie 	= $this->zabbix_tmp_cookies . "zabbix_cookie_". $fileid .".txt";
-			$filename_graph		= $this->zabbix_tmp_cookies . "zabbix_graph_". $fileid .".jpg";
+			// Cookiename
+			$filename_cookie 	= $this->zabbix_tmp_cookies . "zabbix_cookie_". $graphid .".txt";
+
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_URL,  $this->zabbix_url_index);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        curl_setopt($ch, CURLOPT_POST, true);
+                        $post_data = array(
+                            'name' => $this->getUsername(),
+                            'password' => $this->getPassword(),
+                            'enter' => 'Enter'
+                            );
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+                        curl_setopt($ch, CURLOPT_COOKIEJAR, $filename_cookie);
+                        curl_setopt($ch, CURLOPT_COOKIEFILE, $filename_cookie);
+                        // Login
+                        curl_exec($ch);
+                        // Fetch image
+                        curl_setopt($ch, CURLOPT_URL, $this->zabbix_url_graph ."?graphid=". $graphid ."&width=400");
+                        $output = curl_exec($ch);
+                        
+                        // Close session
+                        curl_close($ch);
 			
-			// Get the login-cookie
-			$strWgetLogin		= "wget --save-cookies=". $filename_cookie ." --keep-session-cookies --post-data \"name=". $this->getUsername() ."&password=". $this->getPassword() ."&enter=Enter\" -O - -q \"". $this->zabbix_url_index ."?login=1\"";
-			exec($strWgetLogin);
-			
-			// Wget our graph!
-			$strWget 	= "wget --load-cookies=". $filename_cookie ." -O ". $filename_graph ." -q \"". $this->zabbix_url_graph ."?graphid=". $graphid ."&width=400\"";
-			exec($strWget);
-			
-			// Delete our cookie (graph gets deleted in graph_img.php, when it's retrieved and outputted to the user)
+			// Delete our cookie 
 			unlink($filename_cookie);
+                        // Return the image
+                        return $output;
 		}
 
 

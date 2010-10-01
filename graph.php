@@ -28,18 +28,15 @@
 	require_once("template/header.php");
 	
 	$zabbixGraphId = (int) $_GET['graphid'];
-	if ($zabbixGraphId > 0) {
-		$fileid		= rand(0, 999999);
-		$graphImage = $zabbix->getGraphImageById($zabbixGraphId, $fileid);	// This generates our graph file
-		$graph 		= $zabbix->getGraphById($zabbixGraphId);		
-?>
+        if ($zabbixGraphId > 0) {
+            $graph = $zabbix->getGraphById($zabbixGraphId);
+            ?>
 	<div id="graphs_general<?=$zabbixGraphId?>" class="current">
 		<div class="toolbar">
 			<h1><?=$graph->name?></h1>
 			<a class="back" href="#">Back</a>
 		</div>
-
-		<img src="graph_img.php?fileid=<?=$fileid?>" width="200" />
+                <img src="graph_img.php?graphid=<?=$zabbixGraphId?>" width="200" />
 	</div>
 <?php
 	} else {
