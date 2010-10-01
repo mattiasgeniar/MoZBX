@@ -242,7 +242,7 @@
 				<?php
 					if (isset($_POST['zabbixUsername'])) {
 						// POST variables set, but still showint the form. Invalid credentials?
-						if (strlen($zabbix->getLastError()) > 0) {
+						if (count($zabbix->getLastError()) > 0) {
 							$arrError = $zabbix->getLastError();
 							$errormsg = $arrError["data"];
 							//print_r($arrError);
