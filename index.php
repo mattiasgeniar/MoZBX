@@ -36,8 +36,6 @@
 	
 	//$zabbix->Login("mattias_api", "test");
 
-	// "templates"
-	require_once("template/header.php");	
 
 	if ($zabbix->isLoggedIn()) {
 		// Authenticated, save cookie
@@ -45,7 +43,13 @@
 		setcookie("zabbixPassword", $zabbix->getPassword(), $arrSettings["cookieExpire"]);
 		setcookie("zabbixApi", $zabbix->getZabbixApiUrl(), $arrSettings["cookieExpire"]);
 		setcookie("zabbixAuthHash", $zabbix->getAuthToken(), $arrSettings["cookieExpire"]);
-	
+        }
+
+	// "templates"
+	require_once("template/header.php");	
+
+	if ($zabbix->isLoggedIn()) {
+
 		// Retrieve the data in one go
 		$zabbix_auth 		= $zabbix->getAuthToken();
 		$zabbix_version		= $zabbix->getVersion();
