@@ -7,6 +7,12 @@
 	error_reporting(E_ALL);
 	ini_set("display errors", 1);
 
+        // Check for php curl module
+        if (!function_exists("curl_init")) {
+            echo "<h2>Missing PHP Curl module</h2>";
+            exit();
+        }
+
 	// Main Zabbix object
 	$zabbix = new Zabbix($arrSettings);
 	
