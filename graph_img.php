@@ -1,8 +1,5 @@
 <?php
-	if (ereg('demo', $_SERVER['SERVER_NAME']))
-		require_once("config-demo.php");
-	else
-		require_once("config-live.php");
+	require_once("config.inc.php");
 	$fileid = (int) $_GET['fileid'];
 	
 	// Set correct header

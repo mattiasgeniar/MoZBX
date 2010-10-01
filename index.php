@@ -1,8 +1,5 @@
 <?php
-	if (strpos($_SERVER['SERVER_NAME'], 'demo') !== false)
-		require_once("config-demo.php");
-	else
-		require_once("config-live.php");
+        require_once("config.inc.php");
 	require_once("functions.php");
 	require_once("class_zabbix.php");
 	
