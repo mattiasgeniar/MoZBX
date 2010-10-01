@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Mobile ZBX</title>
@@ -43,14 +42,14 @@
 	
 	$(function(){ // Make sure we do onReady
 		$('#refresh_home').tap(function(){
-			window.location='http://m.zabbix.lab.mojah.be/'; // Use your URL
+			window.location='<?=$arrSettings["urlApplication"]?>'; // Use your URL
 			return false;
 		});
 	});
 	
 	$(function(){ // Make sure we do onReady
 		$('#logout_home').tap(function(){
-			window.location='http://m.zabbix.lab.mojah.be/logout.php'; // Use your URL
+			window.location='<?=$arrSettings["urlApplication"]?>/logout.php'; // Use your URL
 			return false;
 		});
 	});
