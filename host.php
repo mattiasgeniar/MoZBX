@@ -53,9 +53,11 @@
 				echo "<li><a href=\"graph.php?graphid=". $graph["graphid"] ."\"><img src=\"images/chart.png\" class=\"icon_list\">". $graph["name"] ."</a></li>";
 			}
 		?>
-		</li>
+		</ul>
 		<?php
-			}
+			} else {
+                            echo "<h2>No graphs</h2>";
+                        }
 		?>
 	</div>
 <?php

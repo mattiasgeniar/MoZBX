@@ -516,12 +516,14 @@
 		}
 		
 		public function sortHostsByName ($arrHosts) {
-			uasort($arrHosts, "arrSortFunctionHostsName");
+			if (is_array($arrGraphs))
+                            uasort($arrHosts, "arrSortFunctionHostsName");
 			return $arrHosts;
 		}
 		
 		public function sortGraphsByName ($arrGraphs) {
-			uasort($arrGraphs, "arrSortFunctionHostgroupsName");
+			if (is_array($arrGraphs))
+                            uasort($arrGraphs, "arrSortFunctionHostgroupsName");
 			return $arrGraphs;
 		}
 		
