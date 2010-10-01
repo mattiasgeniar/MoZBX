@@ -1,5 +1,5 @@
 <?php
-	if (ereg('demo', $_SERVER['SERVER_NAME']))
+	if (strpos($_SERVER['SERVER_NAME'], 'demo') !== false)
 		require_once("config-demo.php");
 	else
 		require_once("config-live.php");
@@ -201,7 +201,7 @@
 		
 		$zabbixUser = isset($_GET['username']) && strlen($_GET['username']) > 0 ? $_GET['username'] : $zabbixUser;
 		$zabbixApi = isset($_GET['api_url']) && strlen($_GET['api_url']) > 0 ? $_GET['api_url'] : $zabbixApi;
-		if (!ereg('api_jsonrpc.php', $zabbixApi))
+		if (strpos($zabbixApi, 'api_jsonrpc.php') === false)
 			$zabbixApi .= "api_jsonrpc.php";
 		$zabbixHideApi = isset($_GET['hideapi']) ? 'hideapi' : 'donthideapi';
 		$zabbixPass = isset($_GET['password']) ? $_GET['password'] : $arrSettings["zabbixPassword"];

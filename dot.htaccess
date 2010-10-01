@@ -41,3 +41,5 @@ FileETag None
 </ifModule>
 
 AddType text/cache-manifest .manifest
+
+php_flag short_open_tag on
