@@ -29,7 +29,6 @@
 	
 	/* Where is the 'api_jsonrpc.php', 'chart2.php' and 'index.php' file of Zabbix located?? */
 	$arrSettings["zabbixApiUrl"]			= "http://www.mozbx.net/zabbix/";
-	//$arrSettings["zabbixApiUrl"]			= "http://zbx.ant.nucleus.be/zabbix/api_jsonrpc.php";
 	
 	/* Debug JSON requests: echo all sent & received data */
 	$arrSettings["jsonDebug"]				= false;
@@ -60,7 +59,7 @@
 	###########################################################################*/
 	
 	/* Mobile Zabbix version number */
-	$arrSettings["mZabbixVersion"]			= "0.1";
+	$arrSettings["mZabbixVersion"]			= "0.2";
 	
 	/* What should we name our little app? */
 	$arrSettings["mZabbixName"]				= "Mobile ZBX";
