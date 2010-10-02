@@ -36,7 +36,7 @@
 			<h1><?=$graph->name?></h1>
 			<a class="back" href="#">Back</a>
 		</div>
-                <img src="graph_img.php?graphid=<?=$zabbixGraphId?>" width="200" />
+                <img src="graph_img.php?graphid=<?=$zabbixGraphId?>" width="500" />
 	</div>
 <?php
 	} else {
