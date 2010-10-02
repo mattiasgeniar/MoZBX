@@ -424,31 +424,34 @@
 			// Cookiename
 			$filename_cookie 	= $this->zabbix_tmp_cookies . "zabbix_cookie_". $graphid .".txt";
 
-                        $ch = curl_init();
-                        curl_setopt($ch, CURLOPT_URL,  $this->zabbix_url_index);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        curl_setopt($ch, CURLOPT_POST, true);
-                        $post_data = array(
-                            'name' => $this->getUsername(),
-                            'password' => $this->getPassword(),
-                            'enter' => 'Enter'
-                            );
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-                        curl_setopt($ch, CURLOPT_COOKIEJAR, $filename_cookie);
-                        curl_setopt($ch, CURLOPT_COOKIEFILE, $filename_cookie);
-                        // Login
-                        curl_exec($ch);
-                        // Fetch image
-                        curl_setopt($ch, CURLOPT_URL, $this->zabbix_url_graph ."?graphid=". $graphid ."&width=400");
-                        $output = curl_exec($ch);
-                        
-                        // Close session
-                        curl_close($ch);
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,  $this->zabbix_url_index);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_POST, true);
+			$post_data = array(
+				'name' => $this->getUsername(),
+				'password' => $this->getPassword(),
+				'enter' => 'Enter'
+				);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+			curl_setopt($ch, CURLOPT_COOKIEJAR, $filename_cookie);
+			curl_setopt($ch, CURLOPT_COOKIEFILE, $filename_cookie);
+			
+			// Login
+			curl_exec($ch);
+			
+			// Fetch image
+			curl_setopt($ch, CURLOPT_URL, $this->zabbix_url_graph ."?graphid=". $graphid ."&width=500");
+			$output = curl_exec($ch);
+			
+			// Close session
+			curl_close($ch);
 			
 			// Delete our cookie 
 			unlink($filename_cookie);
-                        // Return the image
-                        return $output;
+			
+			// Return the image
+			return $output;
 		}
 
 

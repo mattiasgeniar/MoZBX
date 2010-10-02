@@ -1,5 +1,5 @@
 <?php
-        require_once("config.inc.php");
+	require_once("config.inc.php");
 	require_once("functions.php");
 	require_once("class_zabbix.php");
 	
@@ -7,11 +7,11 @@
 	error_reporting(E_ALL);
 	ini_set("display errors", 1);
 
-        // Check for php curl module
-        if (!function_exists("curl_init")) {
-            echo "<h2>Missing PHP Curl module</h2>";
-            exit();
-        }
+	// Check for php curl module
+	if (!function_exists("curl_init")) {
+		echo "<h2>Missing PHP Curl module</h2>";
+		exit();
+	}
 
 	// Main Zabbix object
 	$zabbix = new Zabbix($arrSettings);
@@ -49,7 +49,7 @@
 		setcookie("zabbixPassword", $zabbix->getPassword(), $arrSettings["cookieExpire"]);
 		setcookie("zabbixApi", $zabbix->getZabbixApiUrl(), $arrSettings["cookieExpire"]);
 		setcookie("zabbixAuthHash", $zabbix->getAuthToken(), $arrSettings["cookieExpire"]);
-        }
+    }
 
 	// "templates"
 	require_once("template/header.php");	
