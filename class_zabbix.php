@@ -533,7 +533,7 @@
 		}
 		
 		public function sortHostsByName ($arrHosts) {
-			if (is_array($arrGraphs))
+			if (is_array($arrHosts))
                             uasort($arrHosts, "arrSortFunctionHostsName");
 			return $arrHosts;
 		}
