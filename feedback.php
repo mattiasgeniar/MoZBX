@@ -85,10 +85,10 @@
 			if ($boolShowFeedbackForm) {
 		?>
 			<ul class="rounded">
-				<form method="post" action="<?=$_SERVER['PHP_SELF']?>" class="form" >
+				<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>" class="form" >
 					<li>
 						Comments on this app: <br />
-						<textarea name="txtFeedback" cols="120" style='margin-top: 4px; margin-bottom: 4px; padding: 4px; border: 1px solid gray; width: 270px; height:160px'><?=isset($_POST['txtFeedback']) ? $_POST['txtFeedback'] : '' ?></textarea><br />
+						<textarea name="txtFeedback" cols="120" style='margin-top: 4px; margin-bottom: 4px; padding: 4px; border: 1px solid gray; width: 270px; height:160px'><?php echo isset($_POST['txtFeedback']) ? $_POST['txtFeedback'] : '' ?></textarea><br />
 						<?php
 							if ($boolShowTextlengthWarn) {
 								echo "<font color='red'>";
@@ -101,7 +101,7 @@
 					</li>
 					
 					<li>
-						<input type="submit" name="mZabbixFeedback" value="Send!" style="<?=$arrSettings["cssStyleButton"]?>" />
+						<input type="submit" name="mZabbixFeedback" value="Send!" style="<?php echo $arrSettings["cssStyleButton"]?>" />
 					</li>
 				</form>
 			</ul>
@@ -112,7 +112,7 @@
 		?>
 			<ul class="rounded">				
 				<li>Thank you for your valuable feedback!</li>
-				<li><a href="<?=$arrSettings["urlApplication"]?>">Home</a></li>
+				<li><a href="<?php echo $arrSettings["urlApplication"]?>">Home</a></li>
 			</ul>
 		<?php
 			}

@@ -37,9 +37,9 @@
 		// Triggers
 		$triggers	= $zabbix->getTriggersByHostId($zabbixHostId);
 ?>
-	<div id="host_<?=$zabbixHostId?>" class="current">
+	<div id="host_<?php echo $zabbixHostId?>" class="current">
 		<div class="toolbar">
-			<h1><?=$host->host?></h1>
+			<h1><?php echo $host->host?></h1>
 			<a class="back" href="#">Back</a>
 		</div>
 		

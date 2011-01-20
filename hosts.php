@@ -37,9 +37,9 @@
 		$hosts		= $zabbix->sortHostsByName($hosts);
 	
 ?>
-	<div id="hosts_general_<?=$zabbixHostgroupId?>" class="current">
+	<div id="hosts_general_<?php echo $zabbixHostgroupId?>" class="current">
 		<div class="toolbar">
-			<h1><?=$hostgroup->name?></h1>
+			<h1><?php echo $hostgroup->name?></h1>
 			<a class="back" href="#">Back</a>
 		</div>
 		

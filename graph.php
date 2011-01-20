@@ -31,12 +31,12 @@
         if ($zabbixGraphId > 0) {
             $graph = $zabbix->getGraphById($zabbixGraphId);
             ?>
-	<div id="graphs_general<?=$zabbixGraphId?>" class="current">
+	<div id="graphs_general<?php echo $zabbixGraphId?>" class="current">
 		<div class="toolbar">
-			<h1><?=$graph->name?></h1>
+			<h1><?php echo $graph->name?></h1>
 			<a class="back" href="#">Back</a>
 		</div>
-                <img src="graph_img.php?graphid=<?=$zabbixGraphId?>" width="500" />
+                <img src="graph_img.php?graphid=<?php echo $zabbixGraphId?>" width="500" />
 	</div>
 <?php
 	} else {

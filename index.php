@@ -67,18 +67,18 @@
 ?>
 		<div id="home" class="current">
 			<div class="toolbar">
-                <h1><?=$arrSettings["mZabbixName"]?></h1>
+                <h1><?php echo $arrSettings["mZabbixName"]?></h1>
                 <a class="button slideup" id="infoButton" href="#settings">Settings</a>
             </div>
 
 			<ul class="rounded">
 				<li><a href="#hostgroups"><img src="images/hostgroups.png" class="icon_list">Hosts Overview</a></li>
-				<li><a href="#activetriggers"><img src="images/trigger.png" class="icon_list">Active Triggers</a> <small class="counter"><?=count($triggersActive)?></small></li>				
-				<li><a href="<?=$arrSettings["urlApplication"]?>"><img src="images/refresh.png" class="icon_list">Refresh page</a></li>
+				<li><a href="#activetriggers"><img src="images/trigger.png" class="icon_list">Active Triggers</a> <small class="counter"><?php echo count($triggersActive)?></small></li>				
+				<li><a href="<?php echo $arrSettings["urlApplication"]?>"><img src="images/refresh.png" class="icon_list">Refresh page</a></li>
 			</ul>
 			
 			<ul class="rounded">
-				<li><a href="<?=$arrSettings["urlApplication"]?>logout.php"><img src="images/logout.png" class="icon_list">Logout</a></li>
+				<li><a href="<?php echo $arrSettings["urlApplication"]?>logout.php"><img src="images/logout.png" class="icon_list">Logout</a></li>
 				<li><a href="feedback.php"><img src="images/feedback.png" class="icon_list">Send feedback</a></li>
 				<li><a href="#about"><img src="images/about.png" class="icon_list">About</a></li>
 			</ul>
@@ -101,14 +101,14 @@
 			</div>
 			
 			<h2>Mobile Zabbix</h2>
-			Mobile Zabbix version <b><?=$arrSettings["mZabbixVersion"]?></b><br />
+			Mobile Zabbix version <b><?php echo $arrSettings["mZabbixVersion"]?></b><br />
 			In development by <b>Mattias Geniar</b>.<br />
 			<br />
 			<h2>Zabbix Server</h2>
-        	Zabbix API version <b><?=$zabbix_version?></b> on the server.<br />			
-			Retrieved data from <b><?=$arrSettings["zabbixHostname"]?></b>.<br />
-			You are logged in as <b><?=$zabbix->getUsername()?></b>.<br />
-			Your current session-id is <b><?=$zabbix->getAuthToken()?></b><br />
+        	Zabbix API version <b><?php echo $zabbix_version?></b> on the server.<br />			
+			Retrieved data from <b><?php echo $arrSettings["zabbixHostname"]?></b>.<br />
+			You are logged in as <b><?php echo $zabbix->getUsername()?></b>.<br />
+			Your current session-id is <b><?php echo $zabbix->getAuthToken()?></b><br />
 			<br />
 			
     	</div>
@@ -215,24 +215,24 @@
 ?>
 	<div id="home_login" class="current">
 		<div class="toolbar">
-			<h1><?=$arrSettings["mZabbixName"]?></h1>
+			<h1><?php echo $arrSettings["mZabbixName"]?></h1>
 		</div>
 	
 		<ul class="rounded">
-			<form method="post" action="<?=$_SERVER['PHP_SELF']?>" class="form" >
+			<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>" class="form" >
 				<?php
 					if ($arrSettings["isHosted"] && !isset($_GET['hideapi'])) {
 						// Hosted version, show input field for the JSON API
 					?>
 						<li>
 							API URL<br />
-							<input type='text' name='zabbixApi' value='<?=isset($_POST['zabbixApi']) ? $_POST['zabbixApi'] : $zabbixApi ?>' style="<?=$arrSettings["cssStyleTextfield"]?>" />
+							<input type='text' name='zabbixApi' value='<?php echo isset($_POST['zabbixApi']) ? $_POST['zabbixApi'] : $zabbixApi ?>' style="<?php echo $arrSettings["cssStyleTextfield"]?>" />
 						</li>
 					<?php					
 					} else {
 						// Fixed setup. Enter JSON API as hidden field
 					?>
-					<input type='hidden' name='zabbixApi' value='<?=isset($_POST['zabbixApi']) ? $_POST['zabbixApi'] : $zabbixApi ?>' />
+					<input type='hidden' name='zabbixApi' value='<?php echo isset($_POST['zabbixApi']) ? $_POST['zabbixApi'] : $zabbixApi ?>' />
 					<?php
 					}
 				?>
@@ -242,12 +242,12 @@
 				
 				<li>
 					User<br />
-					<input type="text" name="zabbixUsername" value="<?=isset($_POST['zabbixUsername']) ? $_POST['zabbixUsername'] : $zabbixUser?>" style="<?=$arrSettings["cssStyleTextfield"]?>" />
+					<input type="text" name="zabbixUsername" value="<?php echo isset($_POST['zabbixUsername']) ? $_POST['zabbixUsername'] : $zabbixUser?>" style="<?php echo $arrSettings["cssStyleTextfield"]?>" />
 				</li>
 				
 				<li>
 					Password <br />
-					<input type="password" name="zabbixPassword" value="<?=isset($_POST['zabbixPassword']) ? $_POST['zabbixPassword'] : $zabbixPass?>" style="<?=$arrSettings["cssStyleTextfield"]?>" />
+					<input type="password" name="zabbixPassword" value="<?php echo isset($_POST['zabbixPassword']) ? $_POST['zabbixPassword'] : $zabbixPass?>" style="<?php echo $arrSettings["cssStyleTextfield"]?>" />
 				</li>
 				<?php
 					if (isset($_POST['zabbixUsername'])) {
@@ -260,14 +260,14 @@
 							$errormsg = "invalid combination";
 				?>
 				<li>
-					<font color="red"><?=$errormsg?></font>
+					<font color="red"><?php echo $errormsg?></font>
 				</li>
 				<?php
 					}
 				?>
 				
 				<li>
-					<input type="submit" name="mZabbixLogin" value="Login" style="<?=$arrSettings["cssStyleButton"]?>" />
+					<input type="submit" name="mZabbixLogin" value="Login" style="<?php echo $arrSettings["cssStyleButton"]?>" />
 				</li>
 
 			</form>
