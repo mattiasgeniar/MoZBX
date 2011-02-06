@@ -441,7 +441,7 @@
 			curl_exec($ch);
 			
 			// Fetch image
-			curl_setopt($ch, CURLOPT_URL, $this->zabbix_url_graph ."?graphid=". $graphid ."&width=500");
+			curl_setopt($ch, CURLOPT_URL, $this->zabbix_url_graph ."?graphid=". $graphid ."&width=450");
 			$output = curl_exec($ch);
 			
 			// Close session
