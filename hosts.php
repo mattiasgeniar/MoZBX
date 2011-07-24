@@ -27,8 +27,6 @@
 		exit();
 	}
 	
-	require_once("template/header.php");
-	
 	$zabbixHostgroupId = (int) $_GET['hostgroupid'];
 	if ($zabbixHostgroupId > 0) {
 		$hostgroup 	= $zabbix->getHostgroupById($zabbixHostgroupId);
@@ -37,7 +35,7 @@
 		$hosts		= $zabbix->sortHostsByName($hosts);
 	
 ?>
-	<div id="hosts_general_<?php echo $zabbixHostgroupId?>" class="current">
+	<div id="hosts_general_<?php echo $zabbixHostgroupId?>">
 		<div class="toolbar">
 			<h1><?php echo $hostgroup->name?></h1>
 			<a class="back" href="#">Back</a>
