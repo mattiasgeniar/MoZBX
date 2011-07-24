@@ -17,7 +17,7 @@ body {
     border-bottom: 1px solid #000;
     padding: 10px;
     height: 45px;
-    background: url(img/toolbar.png) #000000 repeat-x;
+    background: url(img/toolbarBackground.png) #000000 repeat-x;
     position: relative;
 }
 #jqt .black-translucent .toolbar {
@@ -66,12 +66,10 @@ body {
     background: none;
     -webkit-border-image: url(img/button.png) 0 5 0 5;
 }
-#jqt .button.active, #jqt .cancel.active, #jqt .add.active {
-    -webkit-border-image: url(img/button_clicked.png) 0 5 0 5;
-}
-#jqt .blueButton {
-    -webkit-border-image: url(img/blueButton.png) 0 5 0 5;
-    border-width: 0 5px;
+#jqt .button.active, 
+#jqt .cancel.active, 
+#jqt .add.active {
+    -webkit-border-image: url(img/buttonActive.png) 0 5 0 5;
 }
 #jqt .back {
     left: 6px;
@@ -79,10 +77,10 @@ body {
     padding: 0;
     max-width: 55px;
     border-width: 0 8px 0 14px;
-    -webkit-border-image: url(img/back_button.png) 0 8 0 14;
+    -webkit-border-image: url(img/backButton.png) 0 8 0 14;
 }
 #jqt .back.active {
-    -webkit-border-image: url(img/back_button_clicked.png) 0 8 0 14;
+    -webkit-border-image: url(img/backButtonActive.png) 0 8 0 14;
 }
 #jqt .leftButton, #jqt .cancel {
     left: 6px;
@@ -93,38 +91,21 @@ body {
     line-height: 24px;
     font-weight: bold;
 }
-#jqt .whiteButton,
-#jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
+#jqt .bigButton {
+    -webkit-border-image: url(img/bigButton.png) 0 12 0 12;
     border-width: 0 12px;
     color: #000000;
     display: block;
     font-size: 20px;
     font-weight: bold;
-    padding: 10px;
+    line-height: 46px;
     text-align: center;
     text-decoration: inherit;
-    text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+    text-shadow: rgba(255,255,255,.8) 0 1px 0;
 }
-
-#jqt .whiteButton.active, #jqt .grayButton.active, #jqt .redButton.active, #jqt .blueButton.active, #jqt .greenButton.active,
-#jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active {
-    -webkit-border-image: url(img/activeButton.png) 0 12 0 12;
-    color: #000000 !important;
-}
-#jqt .whiteButton {
-    -webkit-border-image: url(img/whiteButton.png) 0 12 0 12;
-}
-#jqt .grayButton {
-    -webkit-border-image: url(img/grayButton.png) 0 12 0 12;
-    color: #FFFFFF;
-}
-
-#jqt .redButton {
-    -webkit-border-image: url(img/redButton.png) 0 12 0 12;
-}
-
-#jqt .greenButton {
-    -webkit-border-image: url(img/greenButton.png) 0 12 0 12;
+#jqt .bigButton.active {
+    -webkit-border-image: url(img/bigButtonActive.png) 0 12 0 12;
+    color: #000000;
 }
 
 
@@ -174,7 +155,7 @@ body {
 }
 
 #jqt ul li.forward {
-    background-image: url(img/chevron_circle.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
+    background-image: url(img/chevronCircle.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
     background-position: right center;
     background-repeat: no-repeat;
 }
@@ -188,9 +169,11 @@ body {
     display: block;
     padding: 12px 10px 12px 10px;
     margin: -10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     text-shadow: rgba(0,0,0,.2) 0 1px 1px;
 }
-#jqt ul li a.active, #jqt ul li a.button {
+#jqt ul li a.active, 
+#jqt ul li a.button {
     background-color: #53b401;
     color: #fff;
 }
@@ -200,12 +183,12 @@ body {
     background-repeat: no-repeat;
 }
 #jqt ul li.arrow a.active {
-    background-image: url(img/chevron.png);
+    background-image: url(img/chevronActive.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
 #jqt ul li.forward a.active {
-    background-image: url(img/chevron_circle.png);
+    background-image: url(img/chevronCircleActive.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
@@ -310,9 +293,6 @@ body {
     color: #777;
     margin: -12px 0 0 17px;
 }
-#jqt.android ul li input[type="checkbox"]:after, #jqt.android ul li input[type="radio"]:after {
-    margin: 3px 0 0 24px;
-}
 /* @end */
 /* @group Mini Label */
 #jqt ul li small {
@@ -391,34 +371,36 @@ body {
     float: right;
 }
 #jqt .toggle input[type="checkbox"]:checked {
-    background-position: 0 0;
+    left: 0px;
 }
 #jqt .toggle input[type="checkbox"] {
     -webkit-appearance: textarea;
     -webkit-border-radius: 5px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-transition: background-position .15s;
+    -webkit-transition: left .15s;
     background-color: transparent;
-    background: #fff url(img/on_off.png) -55px 0 no-repeat;
+    background: #fff url(img/toggleSwitch.png) 0 0 no-repeat;
     border: 0;
     height: 27px;
+    left: -55px;
     margin: 0;
     overflow: hidden;
     position: absolute;
-    width: 94px;
+    top: 0;
+    width: 149px;
 }
 /* @end */
 /* @group Info */
 #jqt .info {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#aaa), color-stop(.6,#CCCCCC));
+    border-top: 1px solid rgba(255,255,255,.2);
+    color: #444;
     font-size: 12px;
+    font-weight: bold;
     line-height: 16px;
+    padding: 15px;
     text-align: center;
     text-shadow: rgba(255,255,255,.8) 0 1px 0;
-    color: #444;
-    padding: 15px;
-    border-top: 1px solid rgba(255,255,255,.2);
-    font-weight: bold;
 }
 /* @end */
 /* @group Edge to edge */
@@ -503,12 +485,12 @@ body {
     background-repeat: no-repeat;
 }
 #jqt ul.plastic li.forward {
-    background-image: url(img/chevron_circle.png);
+    background-image: url(img/chevronCircle.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
 #jqt ul.plastic li.forward a.active {
-    background-image: url(img/chevron_circle.png);
+    background-image: url(img/chevronCircle.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
