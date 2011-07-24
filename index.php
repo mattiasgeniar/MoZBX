@@ -74,7 +74,7 @@
 			<ul class="rounded">
 				<li><a href="#hostgroups"><img src="images/hostgroups.png" class="icon_list">Hosts Overview</a></li>
 				<li><a href="#activetriggers"><img src="images/trigger.png" class="icon_list">Active Triggers</a> <small class="counter"><?php echo count($triggersActive)?></small></li>				
-				<li><a href="<?php echo $arrSettings["urlApplication"]?>"><img src="images/refresh.png" class="icon_list">Refresh page</a></li>
+				<li><a href="<?php echo $arrSettings["urlApplication"]?>" target="_webapp"><img src="images/refresh.png" class="icon_list">Refresh page</a></li>
 			</ul>
 			
 			<ul class="rounded">
@@ -139,7 +139,11 @@
 						
 					}
 				} else {
-					echo "Sorry, you don't seem have access to any hostgroups.<br /><br />Does the user with which you login, have <b>API Access</b> enabled in the Zabbix <b>User Administration</b> screen?";
+					?>
+                    Sorry, you don't seem have access to any hostgroups.<br />
+                    <br />
+                    Does the user with which you login, have <b>API Access</b> enabled in the Zabbix <b>User Administration</b> screen?
+                    <?php
 				}
 			?>
 			</ul>
@@ -165,6 +169,7 @@
 									"comments"		=> $triggerActive["comments"],
 									"lastchange"	=> $triggerActive["lastchange"],
 									"priority"		=> $triggerActive["priority"],
+                                    "triggerid"     => $triggerActive["triggerid"],
 								);
 						}
 					}
@@ -178,15 +183,25 @@
 						
 						foreach ($arrTriggers["triggers"] as $arrTrigger) {
 							$trigger_description = cleanTriggerDescription($arrTrigger["description"]);
-							
-							echo "<li><img src=\"images/blank.png\" class=\"icon_list\"><font class=\"severity_". $arrTrigger["priority"] ."\">". $trigger_description ."</font></li>";
+							?>
+							<li>
+                                <a href="trigger_info.php?triggerid=<?=$arrTrigger["triggerid"]?>&hostid=<?=$hostid?>">
+                                    <img src="images/blank.png" class="icon_list">
+                                    <font class="severity_<?=$arrTrigger["priority"]?>">
+                                        <?=$trigger_description?>
+                                    </font>
+                                </a>
+                            </li>
+                            <?php
 						}
 					}
 				?>
 				</ul>
 				<?php
 				} else {
-					echo "<ul class=\"rounded\">There don't seem to be any active triggers.</ul>";
+					?>
+                    <ul class="rounded">There don't seem to be any active triggers.</ul>
+                    <?php
 				}
 			?>
     	</div>
