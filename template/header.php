@@ -9,7 +9,7 @@
 
 <script src="jqtouch/jquery-1.4.2.js" type="application/x-javascript" charset="utf-8"></script>
 <script src="jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
-<style type="text/css" media="screen">@import "jqtouch/jqtouch.min.css";</style>
+<style type="text/css" media="screen">@import "jqtouch/jqtouch.css";</style>
 <style type="text/css" media="screen">@import "themes/<?php echo $arrSettings["appTheme"]?>/theme.min.css";</style>
 <style type="text/css" media="screen">@import "css/custom_style.css";</style>
 
@@ -40,14 +40,14 @@
 	
 	$(function(){ // Make sure we do onReady
 		$('#refresh_home').tap(function(){
-			window.location='<?php echo $arrSettings["urlApplication"]?>'; // Use your URL
+			window.location.href='<?php echo $arrSettings["urlApplication"]?>'; // Use your URL
 			return false;
 		});
 	});
 	
 	$(function(){ // Make sure we do onReady
 		$('#logout_home').tap(function(){
-			window.location='<?php echo $arrSettings["urlApplication"]?>/logout.php'; // Use your URL
+			window.location.href='<?php echo $arrSettings["urlApplication"]?>/logout.php'; // Use your URL
 			return false;
 		});
 	});   
