@@ -53,8 +53,6 @@
 			return false;
 		});
 	});
-    
-    $(function(){
 
 </script>
 <?php echo $arrSettings["googleAnalytics"]?>
