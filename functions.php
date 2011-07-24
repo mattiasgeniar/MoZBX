@@ -36,7 +36,7 @@
     }
     
     function convertEventClock ($clock) {
-        return date("Y-m-d, H:i:s", $clock);
+        return date("d/m, H:i:s", $clock);
     }
     
     function convertEventValue ($value) {
