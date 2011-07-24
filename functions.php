@@ -16,4 +16,22 @@
 		
 		return $ip;
 	}
+    
+    function cleanTriggerDescription ($description) {
+        $trigger_description = str_replace("{HOSTNAME}", "", $description);
+
+        // If what remains is shown as ": trigger", delete the first char
+        $arrReplaceChars = array(":", "-", " ");
+        $char_cut = 0;
+        for ($c = 0; $c < strlen($trigger_description); $c++) {
+            if (!in_array($trigger_description[$c], $arrReplaceChars)) {
+                $char_cut = $c;
+                $c = strlen($trigger_description) + 1;		// Exit the loop
+            }
+        }
+        
+        $trigger_description = substr($trigger_description, $char_cut, strlen($trigger_description));  
+        
+        return $trigger_description;
+    }
 ?>
