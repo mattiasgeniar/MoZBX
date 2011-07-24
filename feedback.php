@@ -1,5 +1,5 @@
 <?php
-        require_once("config.inc.php");
+    require_once("config.inc.php");
 	require_once("functions.php");
 	require_once("class_zabbix.php");		
 	require_once("cookies.php");
@@ -71,14 +71,12 @@
 	} else {
 		$boolShowFeedbackForm 	= true;
 	}
-	
-	require_once("template/header.php");
 ?>
 
-	<div id="feedback" class="current">
+	<div id="feedback">
 		<div class="toolbar">
 			<h1>Feedback</h1>
-			<a class="back" href="index.php">Back</a>
+			<a class="back" href="#">Back</a>
 		</div>
 		
 		<?php
