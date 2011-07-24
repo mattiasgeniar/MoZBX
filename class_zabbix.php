@@ -103,6 +103,7 @@
 			$this->zabbix_url_graph		= $arrSettings["zabbixApiUrl"] ."chart2.php";
 			$this->zabbix_url_index		= $arrSettings["zabbixApiUrl"] ."index.php";
 			$this->json_debug			= $arrSettings["jsonDebug"];
+            $this->json_debug_path	    = $arrSettings["jsonDebug_path"];
 		}
 
 		
@@ -381,27 +382,38 @@
 			return $arrTrigger;
 		}
         
-        public function getEventsByTrigger ($triggerid) {
+        public function getEventsByTriggerAndHostId ($triggerid, $hostid) {
 			$result	= $this->sendRequest("event.get", 
-										array( 	
-												"filter" => array("triggerids" => $triggerid),
-										)
-									);
+										array( 	"triggerids" => $triggerid,
+                                                "hostids"   => $hostid,
+                                                "limit"     => 10,
+                                                "output"    => "extend",
+                                                "sortfield" => "clock",
+                                                "sortorder" => "DESC")										
+									);                                    
 			
 			if (isset($result->result)) {
-				$trigger_objects= $result->result;
+				$event_objects= $result->result;
 				
-				if (is_array($trigger_objects) && count($trigger_objects) > 0) {
-					$arrTriggers = array();
-					foreach ($trigger_objects as $object) {
-						$arrTriggers[$object->triggerid] = $this->convertTriggerJson($object);									
+				if (is_array($event_objects) && count($event_objects) > 0) {
+					$arrEvents = array();
+					foreach ($event_objects as $event) {
+						$arrEvents[] = $event;									
 					}
-					return $arrTriggers;			
+					return $arrEvents;			
 				} else {
 					return false;
 				}
 			}
 		}
+        
+        public function acknowledgeEvent($eventid, $comment) {
+            $result	= $this->sendRequest("event.acknowledge", 
+										array( 	"eventids"  => $eventid,
+                                                "message"   => $comment)										
+									);
+            return true;
+        }
         
 		
 		public function getGraphsByHostId ($hostid) {
@@ -649,10 +661,24 @@
 			curl_close($curl_init);
 
 			if ($this->json_debug) {
-				echo "<h3>Json Answer</h3>";
+                // output to the screen
+				/*echo "<h3>Json Answer</h3>";
 				echo "<pre>";
 				echo var_dump($ret, true);
-				echo "</pre>";
+				echo "</pre>";*/
+                
+                // log it
+                $handle = fopen($this->json_debug_path ."json.log", "a");
+                fwrite($handle, "\n======= ". date("Y/m/d, H:i:s") ." =======\n");
+                fwrite($handle, "Source IP: ". getVisitorIP() ."\n");
+                fwrite($handle, "Action: ". $action ."\n");
+                fwrite($handle, "Request: \n");
+                fwrite($handle, var_export($json_data, true));
+                fwrite($handle, "\n\n");
+                fwrite($handle, "Response: \n");
+                fwrite($handle, var_export($ret, true));
+                fwrite($handle, "\n=======\n");
+                fclose($handle);
 			}
 			
 			// Make the output "readable"
@@ -674,13 +700,6 @@
 				'params'	=> is_array($parameters) ? $parameters : array(),
 				'jsonrpc'	=> '2.0'
 			);
-
-			if ($this->json_debug) {
-				echo "<h3>Json Request</h3>";
-				echo "<pre>";
-				echo var_dump($json_request, true);
-				echo "</pre>";
-			}
 
 			return json_encode($json_request);
 		}
