@@ -340,6 +340,25 @@
 				}
 			}
 		}
+        
+        public function getTriggerByTriggerAndHostId ($triggerid, $hostid) {
+			$result	= $this->sendRequest("trigger.get", 
+										array( 	"output" => "extend",
+                                                "triggerids" => array($triggerid),
+                                                "hostids" => array($hostid),
+										)
+									);
+			
+			if (isset($result->result)) {
+				$trigger_objects= $result->result;                
+				
+				if (is_array($trigger_objects) && count($trigger_objects) == 1) {                    
+					return $this->convertTriggerJson($trigger_objects[0]);
+				} else {
+					return false;
+				}
+			}
+		}
 		
 		private function convertTriggerJson ($object) {
 			$arrTrigger =	array(	"triggerid" 	=> $object->triggerid,
@@ -361,6 +380,29 @@
 				
 			return $arrTrigger;
 		}
+        
+        public function getEventsByTrigger ($triggerid) {
+			$result	= $this->sendRequest("event.get", 
+										array( 	
+												"filter" => array("triggerids" => $triggerid),
+										)
+									);
+			
+			if (isset($result->result)) {
+				$trigger_objects= $result->result;
+				
+				if (is_array($trigger_objects) && count($trigger_objects) > 0) {
+					$arrTriggers = array();
+					foreach ($trigger_objects as $object) {
+						$arrTriggers[$object->triggerid] = $this->convertTriggerJson($object);									
+					}
+					return $arrTriggers;			
+				} else {
+					return false;
+				}
+			}
+		}
+        
 		
 		public function getGraphsByHostId ($hostid) {
 			$result	= $this->sendRequest("graph.get", 

@@ -7,8 +7,8 @@
 <link rel="apple-touch-icon" href="../iui/iui-logo-touch-icon.png" />
 <meta name="apple-touch-fullscreen" content="YES" />
 
-<script src="jqtouch/jquery-1.4.2.min.js" type="application/x-javascript" charset="utf-8"></script>
-<script src="jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+<script src="jqtouch/jquery-1.4.2.js" type="application/x-javascript" charset="utf-8"></script>
+<script src="jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
 <style type="text/css" media="screen">@import "jqtouch/jqtouch.min.css";</style>
 <style type="text/css" media="screen">@import "themes/<?php echo $arrSettings["appTheme"]?>/theme.min.css";</style>
 <style type="text/css" media="screen">@import "css/custom_style.css";</style>
@@ -18,9 +18,7 @@
 		icon: 'images/MoZBX.png',
 		addGlossToIcon: false,
 		startupScreen: 'images/MoZBX_startup.png',
-		statusBar: '<?php echo $arrSettings["appStatusbarColor"]?>-translucent',
-		formSelector: false,
-		useFastTouch: false,
+		statusBar: '<?php echo $arrSettings["appStatusbarColor"]?>-translucent',		
 		preloadImages: [			
 			'themes/<?php echo $arrSettings["appTheme"]?>/img/grayButton.png',
 			'themes/<?php echo $arrSettings["appTheme"]?>/img/whiteButton.png',
@@ -52,7 +50,7 @@
 			window.location='<?php echo $arrSettings["urlApplication"]?>/logout.php'; // Use your URL
 			return false;
 		});
-	});
+	});   
 
 </script>
 <?php echo $arrSettings["googleAnalytics"]?>
