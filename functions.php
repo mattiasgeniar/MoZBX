@@ -34,4 +34,22 @@
         
         return $trigger_description;
     }
+    
+    function convertEventClock ($clock) {
+        return date("Y-m-d, H:i:s", $clock);
+    }
+    
+    function convertEventValue ($value) {
+        switch ($value) {
+            case "1":
+                return "Problem";
+                break;
+            case "0":
+                return "OK";
+                break;
+            case "2":
+                return "Acknowledged";
+                break;
+        }
+    }
 ?>
