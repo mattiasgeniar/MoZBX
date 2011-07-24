@@ -23,3 +23,18 @@
 	/* High */
 	color: #BD0A02;
 }
+
+.event_list_0 {
+    /* Event: OK */
+    color: green;
+}
+
+.event_list_1 {
+    /* Event: problem */
+    color: red;
+}
+
+.event_list_2 {
+    /* Event: acknowleged */
+    color: orange;
+}
