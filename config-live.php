@@ -19,7 +19,7 @@
 	/* Your Zabbix's server's hostname: used in the Zabbix Cookie Forging for retrieving graphs */
 	/* This needs to match your server's hostname. Ie: http://zabbix.lab.mojah.be/zabbix/index.php */
 	/* Would mean your zabbixHostname is 'zabbix.lab.mojah.be' (the FQDN) */
-	$arrSettings["zabbixHostname"]			= "mozbx.net";
+	$arrSettings["zabbixHostname"]			= "dev.mozbx.net";
 	
 	/* This is mostly only useful during debugging (less typing) */
 	$arrSettings["zabbixUsername"]			= "demo";
@@ -31,7 +31,8 @@
 	$arrSettings["zabbixApiUrl"]			= "http://www.mozbx.net/zabbix/";
 	
 	/* Debug JSON requests: echo all sent & received data */
-	$arrSettings["jsonDebug"]				= false;
+	$arrSettings["jsonDebug"]				= true;
+    $arrSettings["jsonDebug_path"]          = "/var/www/vhosts/mozbx.net/subdomains/dev/httpdocs/logs/";
 	
 	/* How long should our cookies be valid? */
 	$arrSettings["cookieExpire"]			= time() + 60 * 60 * 7;
@@ -48,7 +49,7 @@
 	$arrSettings["pathCookiesStorage"]		= "/tmp/";
 	
 	/* What URL are we on? */
-	$arrSettings["urlApplication"]			= "http://app.mozbx.net/";
+	$arrSettings["urlApplication"]			= "http://dev.mozbx.net/MoZBX/";
 	
 	/* #########################################################################
 	##

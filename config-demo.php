@@ -32,6 +32,7 @@
 	
 	/* Debug JSON requests: echo all sent & received data */
 	$arrSettings["jsonDebug"]				= false;
+    $arrSettings["jsonDebug_path"]          = "/var/www/vhosts/mozbx.net/httpdocs/logs/";
 	
 	/* How long should our cookies be valid? */
 	$arrSettings["cookieExpire"]			= time() + 60 * 60 * 7;
