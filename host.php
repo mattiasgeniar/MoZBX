@@ -24,8 +24,6 @@
 		exit();
 	}
 	
-	require_once("template/header.php");
-	
 	$zabbixHostId = (int) $_GET['hostid'];
 	if ($zabbixHostId > 0) {
 		$host 		= $zabbix->getHostById($zabbixHostId);
@@ -37,11 +35,18 @@
 		// Triggers
 		$triggers	= $zabbix->getTriggersByHostId($zabbixHostId);
 ?>
-	<div id="host_<?php echo $zabbixHostId?>" class="current">
+	<div id="host_<?php echo $zabbixHostId?>">
 		<div class="toolbar">
 			<h1><?php echo $host->host?></h1>
 			<a class="back" href="#">Back</a>
 		</div>
+        
+        <h2>Host details</h2>
+        <ul class="rounded">
+            <li>Host: <?=$host->host?></li>
+            <li>DNS: <?=$host->dns?></li>
+            <li>IP: <?=$host->ip?></li>            
+        </ul>
 		
 		<?php
 			if (is_array($graphs) && count($graphs) > 0) {
