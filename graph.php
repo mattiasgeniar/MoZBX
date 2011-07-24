@@ -25,13 +25,11 @@
 		exit();
 	}
 	
-	require_once("template/header.php");
-	
 	$zabbixGraphId = (int) $_GET['graphid'];
         if ($zabbixGraphId > 0) {
             $graph = $zabbix->getGraphById($zabbixGraphId);
             ?>
-	<div id="graphs_general<?php echo $zabbixGraphId?>" class="current">
+	<div id="graphs_general<?php echo $zabbixGraphId?>">
 		<div class="toolbar">
 			<h1><?php echo $graph->name?></h1>
 			<a class="back" href="#">Back</a>
