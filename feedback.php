@@ -23,7 +23,7 @@
 	
 	$boolShowThankyou 		= false;
 	$boolShowFeedbackForm 	= true;
-	$boolShowTextlengthWarn	= false;
+	$boolShowTextlengthWarn	= false;    
 	
 	if (isset($_POST['mZabbixFeedback'])) {
 		// Process feedback
@@ -71,19 +71,23 @@
 	} else {
 		$boolShowFeedbackForm 	= true;
 	}
+    
+    // "templates"
+	require_once("template/header.php");
 ?>
 
 	<div id="feedback">
 		<div class="toolbar">
 			<h1>Feedback</h1>
-			<a class="back" href="#">Back</a>
+			<a class="back" href="index.php">Back</a>
 		</div>
 		
 		<?php
 			if ($boolShowFeedbackForm) {
 		?>
 			<ul class="rounded">
-				<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>" class="form" >
+				<form method="post" action="feedback.php" class="form" >
+                    <input type="hidden" name="mZabbixFeedback" value="Send" />
 					<li>
 						Comments on this app: <br />
 						<textarea name="txtFeedback" cols="120" style='margin-top: 4px; margin-bottom: 4px; padding: 4px; border: 1px solid gray; width: 270px; height:160px'><?php echo isset($_POST['txtFeedback']) ? $_POST['txtFeedback'] : '' ?></textarea><br />
@@ -99,7 +103,7 @@
 					</li>
 					
 					<li>
-						<input type="submit" name="mZabbixFeedback" value="Send!" style="<?php echo $arrSettings["cssStyleButton"]?>" />
+						<input type="submit" name="mZabbixFeedback" value="Send!" style="<?php echo $arrSettings["cssStyleButton"]?>" onclick="submit()" />
 					</li>
 				</form>
 			</ul>
@@ -110,7 +114,7 @@
 		?>
 			<ul class="rounded">				
 				<li>Thank you for your valuable feedback!</li>
-				<li><a href="<?php echo $arrSettings["urlApplication"]?>">Home</a></li>
+				<li><a href="<?php echo $arrSettings["urlApplication"]?>" target="_webapp">Home</a></li>
 			</ul>
 		<?php
 			}
