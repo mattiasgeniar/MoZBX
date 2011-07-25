@@ -79,7 +79,7 @@
 	<div id="feedback">
 		<div class="toolbar">
 			<h1>Feedback</h1>
-			<a class="back" href="index.php">Back</a>
+			<a class="button slideup" id="infoButton" href="<?php echo $arrSettings["urlApplication"]?>" target="_webapp">Back</a>
 		</div>
 		
 		<?php
