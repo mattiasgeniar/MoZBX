@@ -1,3 +1,4 @@
+== Introduction
 This project is intended as an extra application, built on top of your current Zabbix set-up.
 
 It connects to your Zabbix API URL, using your Zabbix credentials. Afterwards, all settings are pulled from your Zabbix.
@@ -6,3 +7,6 @@ This means any change you make in your Zabbix, will be transported to the Mobile
 If you're worried about security implications, please read more on the FAQ at http://www.mozbx.net.
 
 For more install guides (on your phone, or on your own servers), please see http://www.mozbx.net/install.html.
+
+== About the configurations
+There's a file called "config-live.php" included. Rename that to "config.php" and modify it as you see fit. That file is unique to you, and won't change with future updates.
