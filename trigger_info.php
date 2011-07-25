@@ -23,22 +23,6 @@
 		header("Location: index.php");
 		exit();
 	}
-    
-    // Process the AJAX call of the form, if it exists
-    if (isset($_POST['type'])) {
-        $post_type = $_POST['type'];
-        switch ($post_type) {
-            case "acknowledge":
-                $zabbixEventId = array((string) $_POST['eventid']);
-                $comment = addslashes(htmlspecialchars($_POST["comment"]));
-    
-                $zabbix->acknowledgeEvent($zabbixEventId, $comment);
-                break;
-            
-            default:
-                break;
-        }
-    }
 	
 	$zabbixTriggerId = (int) $_GET['triggerid'];
     $zabbixHostId = (int) $_GET['hostid'];
@@ -72,12 +56,12 @@
             if (is_array($events) && count($events) > 0) {
                 $first_event  = $events[0];                
                 $acknowledge_event = "";
-                if ($first_event->value == 1) {
+                if ($first_event->value == 1 && $first_event->acknowledged != 1) {
                     // This even is in the "problem" state, and it's the last event: meaning the trigger is still in problem
                     // We can acknowledge that
                     ?>
                     <h2>Acknowledge event</h2>
-                    <form id="ajax_post" action="trigger_info.php" method="post" class="form">
+                    <form action="trigger_ack.php" method="post" class="form">
                         <input type="hidden" name="eventid" value="<?=$first_event->eventid?>" />
                         <input type="hidden" name="type" value="acknowledge" />
                         <ul class="rounded">
@@ -85,7 +69,7 @@
                                 <textarea  name="comment" value="" placeholder="Comment"></textarea>
                             </li>
                         </ul>
-                        <a style="margin:0 10px;color:rgba(0,0,0,.9)" href="#" class="submit whiteButton">Acknowledge</a>
+                        <input type="submit" name="mZabbixTriggerAck" value="Acknowledge!" style="<?php echo $arrSettings["cssStyleButton"]?>" onclick="submit()" />                        
                     </form>
                     <?php                    
                 }
