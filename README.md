@@ -1,6 +1,6 @@
 # Introduction: Mobile Zabbix
 
-This project is intended as an extra application, built on top of your current Zabbix set-up.
+This project is intended as an extra application, built on top of your current [Zabbix](http://www.zabbix.com) set-up.
 
 It connects to your Zabbix API URL, using your Zabbix credentials. Afterwards, all settings are pulled from your Zabbix.
 This means any change you make in your Zabbix, will be transported to the Mobile ZBX application.
@@ -15,5 +15,5 @@ There's a file called "config-live.php" included. Rename that to "config.php" an
 
 ### About the author
 
-- Built by [Mattias Geniar](http://mattiasgeniar.be)
+- Built by [Mattias Geniar](http://mattiasgeniar.be) (twitter: [@mattiasgeniar](https://twitter.com/#!/mattiasgeniar) )
 - Submit your issues using [the Github issue tracker](https://github.com/mattiasgeniar/MoZBX/issues))
