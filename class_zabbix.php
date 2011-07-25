@@ -471,7 +471,7 @@
 		
 		}
 		
-		public function getGraphImageById ($graphid) {
+		public function getGraphImageById ($graphid, $period = 3600) {
 			// First: we forge our cookies Zabbix would normally create.
 			//$strCookie 			= $this->zabbix_hostname ."     FALSE   /       FALSE   0       zbx_sessionid   ". $this->auth_token;
 			
@@ -496,7 +496,10 @@
 			curl_exec($ch);
 			
 			// Fetch image
-			curl_setopt($ch, CURLOPT_URL, $this->zabbix_url_graph ."?graphid=". $graphid ."&width=450");
+            // &period= the time, in seconds, of the graph (so: value of 7200 = a 2 hour graph to be shown)
+            // &stime= the time, in PHP's time() format, from when the graph should begin
+            // &width= the width of the graph, small enough to fit on mobile devices            
+			curl_setopt($ch, CURLOPT_URL, $this->zabbix_url_graph ."?graphid=". $graphid ."&width=450&period=". $period);
 			$output = curl_exec($ch);
 			
 			// Close session

@@ -24,17 +24,25 @@
 		header("Location: index.php");
 		exit();
 	}
-	
+    	
 	$zabbixGraphId = (int) $_GET['graphid'];
-        if ($zabbixGraphId > 0) {
-            $graph = $zabbix->getGraphById($zabbixGraphId);
-            ?>
+    $zabbixGraphPeriod = (int) $_GET['period'];
+    if ($zabbixGraphId > 0) {
+        $graph = $zabbix->getGraphById($zabbixGraphId);
+        ?>
 	<div id="graphs_general<?php echo $zabbixGraphId?>">
 		<div class="toolbar">
 			<h1><?php echo $graph->name?></h1>
 			<a class="back" href="#">Back</a>
 		</div>
-                <img src="graph_img.php?graphid=<?php echo $zabbixGraphId?>" width="500" />
+        <img src="graph_img.php?graphid=<?=$zabbixGraphId?>&period=<?=$zabbixGraphPeriod?>" width="500" />
+        <ul class="rounded">
+            <li><a href="graph.php?graphid=<?=$zabbixGraphId?>&period=3600">1 hour</a></li>
+            <li><a href="graph.php?graphid=<?=$zabbixGraphId?>&period=7200">2 hours</a></li>
+            <li><a href="graph.php?graphid=<?=$zabbixGraphId?>&period=10800">3 hours</a></li>
+            <li><a href="graph.php?graphid=<?=$zabbixGraphId?>&period=21600">6 hours</a></li>            
+            <li><a href="graph.php?graphid=<?=$zabbixGraphId?>&period=43200">12 hours</a></li>
+        </ul>
 	</div>
 <?php
 	} else {

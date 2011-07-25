@@ -26,10 +26,11 @@
 	}
 
 	$graphid = (int) $_GET['graphid'];
+    $graphperiod = (int) $_GET['period'];
 	
 	// Set correct header
 	header("Content-Type: image/jpg");
 	
 	// Read the file & output
-	print $zabbix->getGraphImageById($graphid);
+	print $zabbix->getGraphImageById($graphid, $graphperiod);
 ?>
