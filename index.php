@@ -270,7 +270,7 @@
 				?>
 				
 				<li>
-					<input type="submit" name="mZabbixLogin" value="Login" style="<?php echo $arrSettings["cssStyleButton"]?>" />
+					<input type="submit" name="mZabbixLogin" value="Login" style="<?php echo $arrSettings["cssStyleButton"]?>" onclick="submit()" />
 				</li>
 
 			</form>
