@@ -19,6 +19,8 @@
 		addGlossToIcon: false,
 		startupScreen: 'images/MoZBX_startup.png',
 		statusBar: '<?php echo $arrSettings["appStatusbarColor"]?>-translucent',		
+        formSelector: false,    /* Needed for the regular form submit activity */
+        useFastTouch: false,    /* Needed for the regular form submit activity */
 		preloadImages: [			
 			'themes/<?php echo $arrSettings["appTheme"]?>/img/grayButton.png',
 			'themes/<?php echo $arrSettings["appTheme"]?>/img/whiteButton.png',
