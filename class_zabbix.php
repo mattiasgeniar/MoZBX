@@ -318,12 +318,12 @@
 		
 		public function getTriggersActive ($minimalSeverity) {
 			$result	= $this->sendRequest("trigger.get", 
-										array( 	"monitored" 	=> 1,
-												"output" 		=> "extend",
-												"only_true"		=> 1,
+										array( 	"monitored" 	=> 1,   /* Checks trigger, item and host status (all need to be active/enabled) */
+												"output" 		=> "extend",												
 												"select_hosts" 	=> "extend",
 												"min_severity"	=> $minimalSeverity,
-												"filter" => array("value" => 1),
+												"filter" => array("value" => 1), /* Filter by trigger state: 1 = problem */
+                                                "withLastEventUnacknowledged"   => 1,  /* Only the unacknowledged triggers */
 										)
 									);
 			
