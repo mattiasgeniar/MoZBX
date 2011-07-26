@@ -41,15 +41,15 @@
         
         <h2>Host details</h2>
         <ul class="rounded">
-            <li>Host: <?=$host->host?></li>
-            <li>DNS: <?=$host->dns?></li>
-            <li>IP: <?=$host->ip?></li>            
+            <li class="small">Host: <?=$host->host?></li>
+            <li class="small">DNS: <?=$host->dns?></li>
+            <li class="small">IP: <?=$host->ip?></li>            
         </ul>
 		
 		<h2>Trigger details</h2>
 		<ul class="rounded">
-            <li>Description: <?=cleanTriggerDescription($trigger["description"])?></li>
-            <li>Comment: <?=$trigger["comments"]?></li>
+            <li class="small">Description: <?=cleanTriggerDescription($trigger["description"])?></li>
+            <li class="small">Comment: <?=$trigger["comments"]?></li>
         </ul>
         
         <?php
@@ -94,7 +94,7 @@
                         $event->value = 2;
                     }
                 ?>
-                    <li>
+                    <li class="small">
                         <font class="event_list_<?=$event->value?>">
                             <?=convertEventClock($event->clock)?>: <?=convertEventValue($event->value)?>
                         </font>
