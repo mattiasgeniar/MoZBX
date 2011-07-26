@@ -60,7 +60,7 @@
 	###########################################################################*/
 	
 	/* Mobile Zabbix version number */
-	$arrSettings["mZabbixVersion"]			= "0.2";
+	$arrSettings["mZabbixVersion"]			= "0.3";
 	
 	/* What should we name our little app? */
 	$arrSettings["mZabbixName"]				= "Mobile ZBX";
