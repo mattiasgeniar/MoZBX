@@ -43,9 +43,9 @@
         
         <h2>Host details</h2>
         <ul class="rounded">
-            <li>Host: <?=$host->host?></li>
-            <li>DNS: <?=$host->dns?></li>
-            <li>IP: <?=$host->ip?></li>            
+            <li class="small">Host: <?=$host->host?></li>
+            <li class="small">DNS: <?=$host->dns?></li>
+            <li class="small">IP: <?=$host->ip?></li>            
         </ul>
 		
 		<?php
@@ -56,7 +56,7 @@
 		<?php
 			foreach ($graphs as $graph) {
                 ?>
-				<li>
+				<li class="small">
                     <a href="graph.php?graphid=<?=$graph["graphid"]?>&period=3600">
                     <img src="images/chart.png" class="icon_list"><?=$graph["name"]?></a>
                 </li>
