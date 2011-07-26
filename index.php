@@ -179,14 +179,19 @@
 				<ul class="rounded">					
 				<?php
 					foreach ($arrSortedTriggers as $hostid => $arrTriggers) {
-						echo "<li><a href=\"host.php?hostid=". $hostid ."\"><img src=\"images/host.png\" class=\"icon_list\">". $arrTriggers["host"] ."</a></li>";
+						?>
+                        <li>
+                            <a href="host.php?hostid=<?=$hostid?>">
+                                <img src="images/host.png" class="icon_list"><?=$arrTriggers["host"]?>
+                            </a>
+                        </li>
 						
+                        <?php
 						foreach ($arrTriggers["triggers"] as $arrTrigger) {
 							$trigger_description = cleanTriggerDescription($arrTrigger["description"]);
 							?>
-							<li>
-                                <a href="trigger_info.php?triggerid=<?=$arrTrigger["triggerid"]?>&hostid=<?=$hostid?>">
-                                    <img src="images/blank.png" class="icon_list">
+							<li class="small">
+                                <a href="trigger_info.php?triggerid=<?=$arrTrigger["triggerid"]?>&hostid=<?=$hostid?>">                                    
                                     <font class="severity_<?=$arrTrigger["priority"]?>">
                                         <?=$trigger_description?>
                                     </font>
