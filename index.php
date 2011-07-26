@@ -158,8 +158,16 @@
 						$hosts = $zabbix->filterActiveHosts($hosts);
 						$hostCount = is_array($hosts) ? count($hosts) : 0;
 
-						if ($arrSettings["showEmptyHostgroups"] || $hostCount > 0)
-							echo "<li><a href=\"". $linkHostgroup ."\"><img src=\"images/hosts.png\" class=\"icon_list\">". $groupobject["name"] ."</a> <small class=\"counter\">". $hostCount ."</small></li>";
+						if ($arrSettings["showEmptyHostgroups"] || $hostCount > 0) {
+                            ?>                            
+							<li>
+                                <a href="<?=$linkHostgroup?>">
+                                    <img src=\"images/hosts.png\" class="icon_list"><?=$groupobject["name"]?>
+                                </a> 
+                                <small class="counter"><?=$hostCount?></small>
+                            </li>
+                            <?php
+                        }
 						
 					}
 				} else {
@@ -214,11 +222,9 @@
 						foreach ($arrTriggers["triggers"] as $arrTrigger) {
 							$trigger_description = cleanTriggerDescription($arrTrigger["description"]);
 							?>
-							<li class="small">
+							<li class="severity_<?=$arrTrigger["priority"]?>">
                                 <a href="trigger_info.php?triggerid=<?=$arrTrigger["triggerid"]?>&hostid=<?=$hostid?>">                                    
-                                    <font class="severity_<?=$arrTrigger["priority"]?>">
-                                        <?=$trigger_description?>
-                                    </font>
+                                    <?=$trigger_description?>
                                 </a>
                             </li>
                             <?php

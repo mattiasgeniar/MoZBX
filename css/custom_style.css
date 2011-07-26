@@ -6,22 +6,42 @@
 
 .severity_1 {
 	/* Information */
-	color: #204709;
+	background-color: #CCE2CC;
+    display: block;
+    color: #000000;
+    font-size: 12px;
 }
 
 .severity_2 {
 	/* Warning */
-	color: #F7A400;
+	background-color: #EFEFCC;
+    display: block;
+    color: #000000;
+    font-size: 12px;
 }
 
 .severity_3{
 	/* Average */
-	color: #FF1A00;
+	background-color: #DDAAAA;
+    display: block;
+    color: #000000;
+    font-size: 12px;
 }
 
 .severity_4 {
 	/* High */
-	color: #BD0A02;
+	background-color: #FF8888;
+    display: block;
+    color: #000000;
+    font-size: 12px;
+}
+
+.severity_5 {
+	/* Disaster */
+	background-color: #FF0000;
+    display: block;
+    color: #000000;
+    font-size: 12px;
 }
 
 .event_list_0 {
