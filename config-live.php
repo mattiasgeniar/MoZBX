@@ -72,7 +72,7 @@
 	/* This can help keep pages quick, if you can ignore ie. all information/not classified triggers you don't want */
 	/* 0: not classified, 1: information, 2: warning, 3: average, 4: high, 5: disaster */
 	/* If you put it on 0, you'll show all triggers. If on 2, you'll only show warnings or higher */
-	$arrSettings["minimalSeverity"]			= 1;	// >=
+	$arrSettings["minimalSeverity"]			= 2;	// >=
 	
 	/* Styling for the textfields? */
 	//$arrSettings["cssStyleTextfield"]		= "border: 1px solid gray; padding: 3px 0px 3px 0px; color: white; ";	// For JQT theme
