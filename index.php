@@ -100,17 +100,41 @@
 				<a class="back" href="#">Home</a>
 			</div>
 			
-			<h2>Mobile Zabbix</h2>
-			Mobile Zabbix version <b><?php echo $arrSettings["mZabbixVersion"]?></b><br />
-			In development by <b>Mattias Geniar</b>.<br />
-			<br />
-			<h2>Zabbix Server</h2>
-        	Zabbix API version <b><?php echo $zabbix_version?></b> on the server.<br />			
-			Retrieved data from <b><?php echo $arrSettings["zabbixHostname"]?></b>.<br />
-			You are logged in as <b><?php echo $zabbix->getUsername()?></b>.<br />
-			Your current session-id is <b><?php echo $zabbix->getAuthToken()?></b><br />
-			<br />
-			
+            <ul class="rounded">
+                <li class="title">Mobile Zabbix</li>
+                <li class="small">
+                    Mobile Zabbix version <b><?php echo $arrSettings["mZabbixVersion"]?></b><br />
+                    In development by <b>Mattias Geniar</b>
+                </li>
+                
+                <li class="title">Changelog: version 0.3</li>                
+                <li class="small">
+                    <u>New features</u> <br />
+                    Added support for Trigger Acknowledgements<br />
+                    Modified layout for detail items (smaller)<br />
+                    Ability to change the time-period on graphs<br />
+                    <br />
+                    <u>Bugfixes</u><br />
+                    Feedback form should work again<br />
+                    Logout button should work again<br />
+                    Refresh page should work again<br />
+                </li>
+                <li class="title">Changelog: version 0.2</li>                
+                <li class="small">
+                    <u>New features</u> <br />
+                    Listing active triggers<br />
+                    Retrieving host graphs<br />
+                    Browsing hostgroups &amp; hosts<br />
+                </li>
+                
+                <li class="title">Zabbix Server</li>                
+                <li class="small">
+                    Zabbix API version <b><?php echo $zabbix_version?></b> on the server.<br />			
+                    Retrieved data from <b><?php echo $arrSettings["zabbixHostname"]?></b>.<br />
+                    You are logged in as <b><?php echo $zabbix->getUsername()?></b>.<br />
+                    Your current session-id is <b><?php echo $zabbix->getAuthToken()?></b><br />
+                </li>
+            </ul>		
     	</div>
 
 		<div id="hostgroups" class="selectable">

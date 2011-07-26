@@ -43,3 +43,8 @@ li.small {
     /* Small list items. For instance, at the Active Triggers list */
     font-size: 12px;
 }
+
+li.title {
+    /* A title-like element */
+    color: #000000;
+}
