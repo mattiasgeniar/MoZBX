@@ -80,7 +80,7 @@
 			<ul class="rounded">
 				<li><a href="<?php echo $arrSettings["urlApplication"]?>logout.php" target="_webapp"><img src="images/logout.png" class="icon_list">Logout</a></li>
 				<li><a href="feedback.php" target="_webapp"><img src="images/feedback.png" class="icon_list">Send feedback</a></li>
-				<li><a href="#about"><img src="images/about.png" class="icon_list">About</a></li>
+				<li><a href="#about"><img src="images/about.png" class="icon_list">About version <?=$arrSettings["mZabbixVersion"]?></a></li>
 			</ul>
 		</div>
 		
