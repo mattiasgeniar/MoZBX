@@ -162,7 +162,7 @@
                             ?>                            
 							<li>
                                 <a href="<?=$linkHostgroup?>">
-                                    <img src=\"images/hosts.png\" class="icon_list"><?=$groupobject["name"]?>
+					<img src="images/hosts.png" class="icon_list"><?=$groupobject["name"]?>
                                 </a> 
                                 <small class="counter"><?=$hostCount?></small>
                             </li>
