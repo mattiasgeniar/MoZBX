@@ -1,5 +1,5 @@
 <?php
-        require_once("config.inc.php");
+    require_once("config.inc.php");
 	require_once("functions.php");
 	require_once("class_zabbix.php");
 	require_once("cookies.php");
@@ -30,7 +30,7 @@
     if ($zabbixGraphId > 0) {
         $graph = $zabbix->getGraphById($zabbixGraphId);
         ?>
-	<div id="graphs_general<?php echo $zabbixGraphId?>">
+	<div id="graphs_general_<?php echo $zabbixGraphId?>_<?php echo $zabbixGraphPeriod?>">
 		<div class="toolbar">
 			<h1><?php echo $graph->name?></h1>
 			<a class="back" href="#">Back</a>
