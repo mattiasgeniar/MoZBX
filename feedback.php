@@ -103,7 +103,7 @@
 					</li>
 					
 					<li>
-						<input type="submit" name="mZabbixFeedback" value="Send!" style="<?php echo $arrSettings["cssStyleButton"]?>" onclick="submit()" />
+						<input type="submit" name="mZabbixFeedback" value="Send!" class="whiteButton" onclick="submit()" />
 					</li>
 				</form>
 			</ul>
