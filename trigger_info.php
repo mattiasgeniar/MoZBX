@@ -69,7 +69,7 @@
                                 <textarea  name="comment" value="" placeholder="Comment"></textarea>
                             </li>
                         </ul>
-                        <input type="submit" name="mZabbixTriggerAck" value="Acknowledge!" style="<?php echo $arrSettings["cssStyleButton"]?>" onclick="submit()" />
+                        <input type="submit" name="mZabbixTriggerAck" value="Acknowledge" class="whiteButton" onclick="submit()" />
                     </form>
                     <?php
                 }
