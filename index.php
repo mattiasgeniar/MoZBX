@@ -108,6 +108,12 @@
                     In development by <b>Mattias Geniar</b>
                 </li>
 
+                <li class="title">Changelog: version 0.4</li>
+                <li class="small">
+                    Updated jqTouch, using Zepto instead of jqTouch<br />
+                    Performance: default to not showing host-counts per hostgroup<br />
+                </li>
+
                 <li class="title">Changelog: version 0.3</li>
                 <li class="small">
                     <u>New features</u> <br />
@@ -145,6 +151,7 @@
 			</div>
 
 
+            <!-- start iterating each hostgroup -->
 			<ul class="rounded">
 			<?php
 				$zabbixHostgroups = $zabbix->getHostgroups();
@@ -152,20 +159,23 @@
 
 				if (is_array($zabbixHostgroups) && count($zabbixHostgroups) > 0) {
 					foreach ($zabbixHostgroups as $groupobject) {
-						// Start list item
 						$linkHostgroup = "hosts.php?hostgroupid=". $groupobject["groupid"];
 
-						$hosts = $zabbix->getHostsByGroupId ($groupobject["groupid"]);
-						$hosts = $zabbix->filterActiveHosts($hosts);
-						$hostCount = is_array($hosts) ? count($hosts) : 0;
+                        if ($arrSettings["countHostsPerGroup"] == true) {
+						    $hosts = $zabbix->getHostsByGroupId ($groupobject["groupid"]);
+						    $hosts = $zabbix->filterActiveHosts($hosts);
+						    $hostCount = is_array($hosts) ? count($hosts) : 0;
+                        } else {
+                            // Assume this hostgroup has hosts in them
+                            $hostCount = 1;
+                        }
 
 						if ($arrSettings["showEmptyHostgroups"] || $hostCount > 0) {
                             ?>
 							<li>
                                 <a href="<?php echo $linkHostgroup?>">
-					<img src="images/hosts.png" class="icon_list"><?php echo $groupobject["name"]?>
+					                <img src="images/hosts.png" class="icon_list"><?php echo $groupobject["name"]?>
                                 </a>
-                                <small class="counter"><?php echo $hostCount?></small>
                             </li>
                             <?php
                         }
@@ -180,6 +190,7 @@
 				}
 			?>
 			</ul>
+            <!-- end iterating each hostgroup -->
 		</div>
 
 		<div id="activetriggers" class="selectable">
