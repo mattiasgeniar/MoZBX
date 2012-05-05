@@ -117,6 +117,7 @@
 
                 <li class="title">Changelog: version 0.4</li>
                 <li class="small">
+                    Changes for Zabbix 2.0 compatibility introduced<br />
                     Updated jqTouch, using Zepto instead of jqTouch<br />
                     Performance: default to not showing host-counts per hostgroup<br />
                 </li>
