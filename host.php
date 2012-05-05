@@ -66,8 +66,8 @@
 		</ul>
 		<?php
 			} else {
-                            echo "<h2>No graphs</h2>";
-                        }
+                echo "<h2>No graphs</h2>";
+            }
 		?>
 	</div>
 <?php
