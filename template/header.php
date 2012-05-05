@@ -7,14 +7,14 @@
     <link rel="apple-touch-icon" href="../iui/iui-logo-touch-icon.png"/>
     <meta name="apple-touch-fullscreen" content="YES"/>
 
-    <link rel="stylesheet" href="/themes/css/jqtouch.css" title="jQTouch">
+    <link rel="stylesheet" href="themes/css/jqtouch.css" title="jQTouch">
 
-    <script src="/jqtouch/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/jqtouch/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="jqtouch/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="jqtouch/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
 
 
-    <style type="text/css" media="screen">@import "/themes/css/<?php echo $arrSettings["appTheme"]?>.css";</style>
-    <style type="text/css" media="screen">@import "/css/custom_style.css";</style>
+    <style type="text/css" media="screen">@import "themes/css/<?php echo $arrSettings["appTheme"]?>.css";</style>
+    <style type="text/css" media="screen">@import "css/custom_style.css";</style>
 
     <script type="text/javascript">
         var jQT = new $.jQTouch({
