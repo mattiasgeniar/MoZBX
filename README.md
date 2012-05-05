@@ -11,9 +11,14 @@ For more install guides (on your phone, or on your own servers), please see http
 
 ### About the configuration file
 
-There's a file called "config-live.php" included. Rename that to "config.php" and modify it as you see fit. That file is unique to you, and won't change with future updates.
+There's a file called "config-core.php" included. Copy that to "config.php" and modify it as you see fit. That file is unique to you, and won't change with future updates.
+
+### Installation instructions
+
+If you have a working webserver with PHP support, it's as easy as cloning the repository and browsing to the URL. By default, no special configs are needed.
+You can edit the config.php (a copy of config-core.php) to substitute some variables that suite your own environment.
 
 ### About the author
 
 - Built by [Mattias Geniar](http://mattiasgeniar.be) (twitter: [@mattiasgeniar](https://twitter.com/#!/mattiasgeniar) )
-- Submit your issues using [the Github issue tracker](https://github.com/mattiasgeniar/MoZBX/issues))
+- Submit your issues using [the Github issue tracker](https://github.com/mattiasgeniar/MoZBX/issues)
