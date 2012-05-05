@@ -65,7 +65,7 @@
 		##
 		############################################################*/
 		
-		private $auth_token			= false;
+		private $auth_token			= null;
 		private $last_error_message	= "";
 		private $last_error_data	= "";
 		private $last_error_code	= "";
@@ -199,7 +199,7 @@
 
 		public function getHostgroups() {
 			// Retrieve all hostgroups for which you have access
-			$result	= $this->sendRequest("hostgroup.get", array("extendoutput" => 1));
+			$result	= $this->sendRequest("hostgroup.get", array("output" => "extend"));
 			//$result			= $this->decodeJson($json_hostgroups);
 			
 			if (isset($result->result)) {
@@ -472,9 +472,6 @@
 		}
 		
 		public function getGraphImageById ($graphid, $period = 3600) {
-			// First: we forge our cookies Zabbix would normally create.
-			//$strCookie 			= $this->zabbix_hostname ."     FALSE   /       FALSE   0       zbx_sessionid   ". $this->auth_token;
-			
 			// Cookiename
 			$filename_cookie 	= $this->zabbix_tmp_cookies . "zabbix_cookie_". $graphid .".txt";
 
