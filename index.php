@@ -9,7 +9,8 @@
 
 	// Check for php curl module
 	if (!function_exists("curl_init")) {
-		echo "<h2>Missing PHP Curl module</h2>";
+    echo "<h2>Missing PHP Curl module</h2>";
+    echo "For retrieving the Zabbix Graphs, the <a href='http://be.php.net/curl'>curl</a> module is required in PHP. Please install it and refresh this page.";
 		exit();
 	}
 
@@ -305,7 +306,7 @@
 				?>
 
 				<li>
-					<input type="submit" name="mZabbixLogin" value="Login" style="<?php echo $arrSettings["cssStyleButton"]?>" onclick="submit()" />
+					<input type="submit" name="mZabbixLogin" value="Login" class="whiteButton" onclick="submit()" />
 				</li>
 
 			</form>
