@@ -60,7 +60,7 @@
 	if ($ack_ok) {
         ?>
         <ul class="rounded">
-            <li>Trigger has been acknowledged. I'm sorry for this lousy message, but I'm going to have to transfer you back to the startup screen for now (as page reload doesn't quite work as expected yet). Click the dashboard link below.</li>
+            <li>Trigger has been acknowledged. Click the dashboard link below to continue.</li>
             <li><a href="<?php echo $arrSettings["urlApplication"]?>" target="_webapp">Dashboard</a></li>
         </ul>
         <?php
