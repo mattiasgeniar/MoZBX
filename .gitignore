@@ -1,5 +1,10 @@
+# Don't track the config.php, that's custom for each user
 config.php
+
+# Just in case you have custom .htaccess files
 .htaccess
+
+# Don't track phpstorm configs
 .idea
 
 # The debuglog for JSON
