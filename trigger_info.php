@@ -48,8 +48,8 @@
 
 		<h2>Trigger details</h2>
 		<ul class="rounded">
-            <li class="small">Description: <?php echo cleanTriggerDescription($trigger["description"])?></li>
-            <li class="small">Comment: <?php echo $trigger["comments"]?></li>
+            <li class="small">Description: <?php echo cleanTriggerDescription($trigger["description"]) ?></li>
+            <li class="small">Comment: <?php echo cleanTriggerDescription($trigger["comments"]) ?></li>
         </ul>
 
         <?php
