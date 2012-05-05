@@ -3,8 +3,8 @@
 		require_once("config-demo.php");
 	else {
         // Load the default configuration file
-        if (file_exists("config-live.php"))
-            require_once("config-live.php");
+        if (file_exists("config-core.php"))
+            require_once("config-core.php");
         
         // If a custom config.php file exists, load it to overwrite the above.
         if (file_exists("config.php"))
