@@ -216,7 +216,8 @@ class Zabbix
     public function getHostsByGroupId($groupid)
     {
         $result = $this->sendRequest("host.get",
-            array("output" => "extend",
+            array(
+                "output" => "extend",
                 "groupids" => array($groupid)
             )
         );
@@ -228,11 +229,12 @@ class Zabbix
                 $arrHosts = array();
                 foreach ($host_objects as $object) {
                     $arrHosts[$object->hostid] =
-                        array("hostid" => $object->hostid,
+                        array(
+                            "hostid" => $object->hostid,
                             "host" => $object->host,
-                            "dns" => $object->dns,
-                            "ip" => $object->ip,
-                            "useip" => $object->useip,
+                            "dns" => @isset($object->dns) ? $object->dns : '',
+                            "ip" => @isset($object->ip) ? $object->ip : '',
+                            "useip" => @isset($object->useip) ? $object->useip : '',
                             "status" => $object->status, /* Enabled or not */
                             "available" => $object->available,
                             "disable_until" => $object->disable_until,
@@ -252,7 +254,8 @@ class Zabbix
     public function getHostById($hostid)
     {
         $result = $this->sendRequest("host.get",
-            array("output" => "extend",
+            array(
+                "output" => "extend",
                 "hostids" => array($hostid)
             )
         );
@@ -349,7 +352,7 @@ class Zabbix
             "value" => $object->value,
             "priority" => $object->priority,
             "lastchange" => $object->lastchange,
-            "dep_level" => $object->dep_level,
+            "dep_level" => @isset($object->dep_level) ? $object->dep_level : '',
             "comments" => $object->comments,
             "error" => $object->error,
             "templateid" => $object->templateid,

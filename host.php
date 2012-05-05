@@ -44,8 +44,8 @@
         <h2>Host details</h2>
         <ul class="rounded">
             <li class="small">Host: <?php echo $host->host?></li>
-            <li class="small">DNS: <?php echo $host->dns?></li>
-            <li class="small">IP: <?php echo $host->ip?></li>
+            <li class="small">DNS: <?php echo @isset($host->dns) ? $host->dns : '' ?></li>
+            <li class="small">IP: <?php echo @isset($host->ip) ? $host->ip : '' ?></li>
         </ul>
 
 		<?php
