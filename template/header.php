@@ -11,7 +11,7 @@
 
     <script src="/jqtouch/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/jqtouch/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
-    
+
 
     <style type="text/css" media="screen">@import "/themes/css/<?php echo $arrSettings["appTheme"]?>.css";</style>
     <style type="text/css" media="screen">@import "/css/custom_style.css";</style>
