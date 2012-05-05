@@ -10,4 +10,10 @@
         if (file_exists("config.php"))
 			require_once("config.php");
 	}
+
+    /* Mobile Zabbix version number */
+    $arrSettings["mZabbixVersion"]  = "0.3";
+
+    /* What should we name our little app? */
+    $arrSettings["mZabbixName"]     = "Mobile ZBX";
 ?>
