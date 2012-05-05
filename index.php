@@ -9,10 +9,17 @@
 
 	// Check for php curl module
 	if (!function_exists("curl_init")) {
-    echo "<h2>Missing PHP Curl module</h2>";
-    echo "For retrieving the Zabbix Graphs, the <a href='http://be.php.net/curl'>curl</a> module is required in PHP. Please install it and refresh this page.";
+        echo "<h2>Missing PHP Curl module</h2>";
+        echo "For retrieving the Zabbix Graphs, the <a href='http://be.php.net/curl'>curl</a> module is required in PHP. Please install it and refresh this page.";
 		exit();
 	}
+
+    // Check for json module
+    if (!function_exists("json_decode")) {
+        echo "<h2>Missing PHP JSON module</h2>";
+        echo "For parsing Zabbix API info, the <a href='http://be.php.net/json_decode'>json</a> module is required in PHP. Please install it and refresh this page.";
+        exit();
+    }
 
 	// Main Zabbix object
 	$zabbix = new Zabbix($arrSettings);
