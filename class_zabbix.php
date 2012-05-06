@@ -516,7 +516,7 @@ class Zabbix
         curl_close($ch);
 
         // Delete our cookie
-        //unlink($filename_cookie);
+        unlink($filename_cookie);
 
         // Return the image
         return $output;
