@@ -297,11 +297,17 @@ class Zabbix
 
     public function getTriggersActive($minimalSeverity)
     {
+        if ($arrSettings["zabbixVersionCompatibility"] == "2.0") {
+            $selectHosts = "selectHosts";
+        } else {
+            $selectHosts = "select_hosts";
+        }
+
         $result = $this->sendRequest("trigger.get",
             array(
                 "monitored"     => 1, /* Checks trigger, item and host status (all need to be active/enabled) */
                 "output"        => "extend",
-                "select_hosts"  => "extend",
+                $selectHosts    => "extend",
                 "min_severity"  => $minimalSeverity,
                 "filter"        => array(
                                             "value" => 1, /* Filter by trigger state: 1 = problem */
