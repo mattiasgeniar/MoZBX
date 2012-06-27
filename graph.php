@@ -25,27 +25,99 @@
 		exit();
 	}
 
+    require_once("template/header.php");
+
 	$zabbixGraphId = (int) $_GET['graphid'];
     $zabbixGraphPeriod = (int) $_GET['period'];
+    $zabbixHostId = (int) $_GET['hostid'];
+    $zabbixHostGroupId = (int) $_GET['groupid'];
+    $zabbixHostGroupName = (string) urldecode($_GET['groupname']);
+    $zabbixHostName = (string) urldecode($_GET['hostname']);
+
+    $urlParameters = "hostid=". $zabbixHostId ."&hostname=". $zabbixHostName ."&groupid=". $zabbixHostGroupId ."&groupname=". urlencode($zabbixHostGroupName);
+
     if ($zabbixGraphId > 0) {
         $graph = $zabbix->getGraphById($zabbixGraphId);
-        ?>
-	<div id="graphs_general_<?php echo $zabbixGraphId?>_<?php echo $zabbixGraphPeriod?>">
-		<div class="toolbar">
-			<h1><?php echo $graph->name?></h1>
-			<a class="back" href="#">Back</a>
-		</div>
+    } else {
+        $graph = null;
+    }
+?>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <ul class="breadcrumb">
+            <li>
+                <a href="index.php">Home</a>
+                <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="hostgroups.php">Hostgroups</a>
+                <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="hosts.php?hostgroupid=<?php echo $zabbixHostGroupId; ?>">
+                    <?php echo $zabbixHostGroupName; ?>
+                </a>
+                <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="host.php?<?php echo $urlParameters; ?>">
+                    <?php echo $zabbixHostName; ?>
+                </a>
+                <span class="divider">/</span>
+            </li>
+            <li class="active">
+                <?php echo $graph->name; ?>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+
+
+<?php
+    if ($graph != null) {
+    ?>
+	    <h2><?php echo $graph->name?></h2>
+        <p>
+            Now showing a <?php echo round($zabbixGraphPeriod/3600, 0); ?> hour period.
+        </p>
         <img src="graph_img.php?graphid=<?php echo $zabbixGraphId?>&period=<?php echo $zabbixGraphPeriod?>" width="500" />
-        <ul class="rounded">
-            <li><a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=3600">1 hour</a></li>
-            <li><a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=7200">2 hours</a></li>
-            <li><a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=10800">3 hours</a></li>
-            <li><a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=21600">6 hours</a></li>
-            <li><a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=43200">12 hours</a></li>
+
+        <ul class="nav nav-pills nav-stacked">
+            <li<?php echo ((int) $zabbixGraphPeriod == 3600) ? ' class="active"' : ''; ?>>
+                <a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=3600&<?php echo $urlParameters; ?>">
+                    <i class="icon-time"></i> 1 hour
+                </a>
+            </li>
+            <li<?php echo ((int) $zabbixGraphPeriod == 7200) ? ' class="active"' : ''; ?>>
+                <a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=7200&<?php echo $urlParameters; ?>">
+                    <i class="icon-time"></i> 2 hours
+                </a>
+            </li>
+            <li<?php echo ((int) $zabbixGraphPeriod == 10800) ? ' class="active"' : ''; ?>>
+                <a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=10800&<?php echo $urlParameters; ?>">
+                    <i class="icon-time"></i> 3 hours
+                </a>
+            </li>
+            <li<?php echo ((int) $zabbixGraphPeriod == 21600) ? ' class="active"' : ''; ?>>
+                <a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=21600&<?php echo $urlParameters; ?>">
+                    <i class="icon-time"></i> 6 hours
+                </a>
+            </li>
+            <li<?php echo ((int) $zabbixGraphPeriod == 43200) ? ' class="active"' : ''; ?>>
+                <a href="graph.php?graphid=<?php echo $zabbixGraphId?>&period=43200&<?php echo $urlParameters; ?>">
+                    <i class="icon-time"></i> 12 hours
+                </a>
+            </li>
         </ul>
 	</div>
 <?php
 	} else {
-		echo "Invalid graph.";
+    ?>
+        <div class="alert alert-error">
+            Invalid graph specified.
+        </div>
+    <?php
 	}
 ?>

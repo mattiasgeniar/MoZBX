@@ -26,7 +26,9 @@
 		header("Location: index.php");
 		exit();
 	}
-	
+
+    require_once("template/header.php");
+
 	$zabbixHostgroupId = (int) $_GET['hostgroupid'];
 	if ($zabbixHostgroupId > 0) {
 		$hostgroup 	= $zabbix->getHostgroupById($zabbixHostgroupId);
@@ -35,22 +37,49 @@
 		$hosts		= $zabbix->sortHostsByName($hosts);
 	
 ?>
-	<div id="hosts_general_<?php echo $zabbixHostgroupId?>">
-		<div class="toolbar">
-			<h1><?php echo $hostgroup->name?></h1>
-			<a class="back" href="#">Back</a>
-		</div>
-		
-		<ul class="rounded">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <ul class="breadcrumb">
+            <li>
+                <a href="index.php">Home</a> <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="hostgroups.php">Hostgroups</a> <span class="divider">/</span>
+            </li>
+            <li class="active">
+                <?php echo $hostgroup->name; ?>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <ul class="nav nav-pills nav-stacked">
 		<?php
 			foreach ($hosts as $host) {
-				echo "<li><a href=\"host.php?hostid=". $host["hostid"] ."\"><img src=\"images/host.png\" class=\"icon_list\">". $host["host"] ."</a></li>";
+                ?>
+                <li>
+                    <a href="host.php?hostid=<?php echo $host["hostid"]; ?>&groupid=<?php echo $zabbixHostgroupId; ?>&groupname=<?php echo urlencode($hostgroup->name); ?>">
+                        <i class="icon-inbox"></i>  <?php echo $host["host"]; ?>
+                   </a>
+                </li>
+                <?php
 			}
 		?>
-		</li>
-	</div>
+	</ul>
 <?php
 	} else {
-		echo "Invalid hostgroup.";
+		?>
+        <div class="alert alert-error">
+            Invalid hostgroup, aborting request.
+        </div>
+
+        <?php
 	}
+?>
+
+</div>
+
+<?php
+    require_once("template/footer.php");
 ?>

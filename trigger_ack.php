@@ -46,24 +46,9 @@
         }
     }
     
-    // "templates"
-	require_once("template/header.php");
-?>
-	<div id="trigger_ack">
-		<div class="toolbar">
-			<h1>Trigger Acknowledge</h1>
-			<a class="button slideup" id="infoButton" href="<?php echo $arrSettings["urlApplication"]?>" target="_webapp">Back</a>
-		</div>
-		
-
-<?php
 	if ($ack_ok) {
-        ?>
-        <ul class="rounded">
-            <li>Trigger has been acknowledged. Click the dashboard link below to continue.</li>
-            <li><a href="<?php echo $arrSettings["urlApplication"]?>" target="_webapp">Dashboard</a></li>
-        </ul>
-        <?php
+        header("Location: trigger_info.php?triggerid=". (int) $_POST['triggerid']);
+        exit();
     } else {
         /* Something, somewhere, went terribly wrong */
         ?>

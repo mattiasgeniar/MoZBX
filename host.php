@@ -24,7 +24,11 @@
 		exit();
 	}
 
+    require_once("template/header.php");
+
 	$zabbixHostId = (int) $_GET['hostid'];
+    $zabbixHostGroupId = (int) $_GET['groupid'];
+    $zabbixHostGroupName = (string) urldecode($_GET['groupname']);
 	if ($zabbixHostId > 0) {
 		$host 		= $zabbix->getHostById($zabbixHostId);
 
@@ -35,30 +39,50 @@
 		// Triggers
 		$triggers	= $zabbix->getTriggersByHostId($zabbixHostId);
 ?>
-	<div id="host_<?php echo $zabbixHostId?>">
-		<div class="toolbar">
-			<h1><?php echo $host->host?></h1>
-			<a class="back" href="#">Back</a>
-		</div>
 
-        <h2>Host details</h2>
-        <ul class="rounded">
-            <li class="small">Host: <?php echo $host->host?></li>
-            <li class="small">DNS: <?php echo @isset($host->dns) ? $host->dns : '' ?></li>
-            <li class="small">IP: <?php echo @isset($host->ip) ? $host->ip : '' ?></li>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <ul class="breadcrumb">
+            <li>
+                <a href="index.php">Home</a> <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="hostgroups.php">Hostgroups</a> <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="hosts.php?hostgroupid=<?php echo $zabbixHostGroupId; ?>">
+                    <?php echo $zabbixHostGroupName; ?>
+                </a> <span class="divider">/</span>
+            </li>
+            <li class="active">
+                <?php echo $host->host; ?>
+            </li>
         </ul>
+    </div>
+</div>
 
-		<?php
-			if (is_array($graphs) && count($graphs) > 0) {
-		?>
-		<h2>Graphs</h2>
-		<ul class="rounded">
+<div class="container">
+    <h2><?php echo $host->host?></h2>
+
+    <h3>Host details</h3>
+    <p>
+        Host: <?php echo $host->host?> <br />
+        DNS: <?php echo @isset($host->dns) ? $host->dns : '' ?> <br />
+        IP: <?php echo @isset($host->ip) ? $host->ip : '' ?> <br />
+    </p>
+
+    <?php
+        if (is_array($graphs) && count($graphs) > 0) {
+    ?>
+		<h3>Graphs</h3>
+        <ul class="nav nav-pills nav-stacked">
 		<?php
 			foreach ($graphs as $graph) {
                 ?>
-				<li class="small">
-                    <a href="graph.php?graphid=<?php echo $graph["graphid"]?>&period=3600">
-                    <img src="images/chart.png" class="icon_list"><?php echo $graph["name"]?></a>
+				<li>
+                    <a href="graph.php?graphid=<?php echo $graph["graphid"]?>&hostid=<?php echo $zabbixHostId; ?>&groupid=<?php echo $zabbixHostGroupId; ?>&groupname=<?php echo urlencode($zabbixHostGroupName); ?>&hostname=<?php echo $host->host; ?>&period=3600">
+                        <i class="icon-signal"></i> <?php echo $graph["name"]; ?>
+                    </a>
                 </li>
                 <?php
 			}
@@ -66,12 +90,20 @@
 		</ul>
 		<?php
 			} else {
-                echo "<h2>No graphs</h2>";
+                ?>
+                <div class="alert alert-info">
+                    <p>This host does not have any available graphs to display. As soon as you add a graph in Zabbix, it will show up here.</p>
+                </div>
+                <?php
             }
 		?>
 	</div>
 <?php
 	} else {
-		echo "Invalid hostgroup.";
+		?>
+        <div class="alert alert-error">
+            Invalid hostgroup specified.
+        </div>
+        <?php
 	}
 ?>

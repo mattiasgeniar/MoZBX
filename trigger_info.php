@@ -24,6 +24,8 @@
 		exit();
 	}
 
+    require_once("template/header.php");
+
 	$zabbixTriggerId = (int) $_GET['triggerid'];
     $zabbixHostId = (int) $_GET['hostid'];
 	if ($zabbixTriggerId > 0 && $zabbixHostId > 0) {
@@ -33,88 +35,109 @@
         $events = $zabbix->getEventsByTriggerAndHostId($zabbixTriggerId, $zabbixHostId);
 
 ?>
-	<div id="trigger_<?php echo $zabbixTriggerId?>">
-		<div class="toolbar">
-			<h1><?php echo $host->host?>: <?php echo cleanTriggerDescription($trigger["description"])?></h1>
-			<a class="back" href="#">Back</a>
-		</div>
-
-        <h2>Host details</h2>
-        <ul class="rounded">
-            <li class="small">Host: <?php echo $host->host?></li>
-            <li class="small">DNS: <?php echo $host->dns?></li>
-            <li class="small">IP: <?php echo $host->ip?></li>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <ul class="breadcrumb">
+            <li>
+                <a href="index.php">Home</a> <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="activetriggers.php">Active Triggers</a> <span class="divider">/</span>
+            </li>
+            <li class="active">
+                <?php echo cleanTriggerDescription($trigger["description"]); ?>
+            </li>
         </ul>
+    </div>
+</div>
 
-		<h2>Trigger details</h2>
-		<ul class="rounded">
-            <li class="small">Description: <?php echo cleanTriggerDescription($trigger["description"]) ?></li>
-            <li class="small">Comment: <?php echo cleanTriggerDescription($trigger["comments"]) ?></li>
-        </ul>
+<div class="container">
+    <h2><?php echo $host->host?>: <?php echo cleanTriggerDescription($trigger["description"])?></h2>
 
-        <?php
-            if (is_array($events) && count($events) > 0) {
-                $first_event  = $events[0];
-                $acknowledge_event = "";
-                if ($first_event->value == 1 && $first_event->acknowledged != 1) {
-                    // This even is in the "problem" state, and it's the last event: meaning the trigger is still in problem
-                    // We can acknowledge that
-                    ?>
-                    <h2>Acknowledge event</h2>
-                    <form action="trigger_ack.php" method="post" class="form">
-                        <input type="hidden" name="eventid" value="<?php echo $first_event->eventid?>" />
-                        <input type="hidden" name="type" value="acknowledge" />
-                        <ul class="rounded">
-                            <li>
-                                <textarea  name="comment" value="" placeholder="Comment"></textarea>
-                            </li>
-                        </ul>
-                        <input type="submit" name="mZabbixTriggerAck" value="Acknowledge" class="whiteButton" onclick="submit()" />
-                    </form>
-                    <?php
-                }
-            }
-        ?>
 
-        <h2>Events</h2>
-        <ul class="rounded">
-        <?php
-            $prev_clock = null;
-            if (is_array($events) && count($events) > 0) {
-                foreach ($events as $event) {
-                    $problem_time = "";
-                    if ($event->value == 1) {
-                        // This event is in the "problem" state
-                        if ($prev_clock != null) {
-                            $problem_time = "<i>(lasted ". ($prev_clock - $event->clock) ." seconds)</i>";
-                        }
-                    }
+    <h3>Host details</h3>
+    <p>
+        Host: <?php echo $host->host?> <br />
+        DNS: <?php echo $host->dns?> <br />
+        IP: <?php echo $host->ip?> <br />
+    </p>
 
-                    if ($event->acknowledged == 1) {
-                        $event->value = 2;
-                    }
+    <h3>Trigger details</h3>
+    <p>
+        Description: <?php echo cleanTriggerDescription($trigger["description"]) ?> <br />
+        Comment: <?php echo cleanTriggerDescription($trigger["comments"]) ?> <br />
+    </p>
+
+    <?php
+        if (is_array($events) && count($events) > 0) {
+            $first_event  = $events[0];
+            $acknowledge_event = "";
+            if ($first_event->value == 1 && $first_event->acknowledged != 1) {
+                // This event is in the "problem" state, and it's the last event: meaning the trigger is still in problem
+                // We can acknowledge that
                 ?>
-                    <li class="small">
-                        <font class="event_list_<?php echo $event->value?>">
-                            <?php echo convertEventClock($event->clock)?>: <?php echo convertEventValue($event->value)?>
-                        </font>
-                        <font class="event_list_timing">
-                            <?php echo $problem_time?>
-                        </font>
-                    </li>
+                <h3>Acknowledge event</h3>
+                <form action="trigger_ack.php" method="post" class="well">
+                    <input type="hidden" name="eventid" value="<?php echo $first_event->eventid; ?>" />
+                    <input type="hidden" name="triggerid" value="<?php echo $zabbixTriggerId; ?>" />
+                    <input type="hidden" name="type" value="acknowledge" />
+
+                    <label>Acknowledge</label>
+                    <textarea  name="comment" id="comment" value="" placeholder="Comment"></textarea>
+                    <span class="help-block">Please describe why you're acknowledging this event.</span>
+
+                    <button type="submit" name="mZabbixTriggerAck" class="btn btn-primary">Acknowledge</button>
+                </form>
                 <?php
-                    $prev_clock = $event->clock;
-                }
-            } else {
-            ?>
-                <li>No events found</li>
-            <?php
             }
+        }
+    ?>
+
+    <h3>Events</h3>
+    <?php
+        $prev_clock = null;
+        if (is_array($events) && count($events) > 0) {
         ?>
-        </ul>
-	</div>
+            <ul class="nav nav-list">
+        <?php
+            foreach ($events as $event) {
+                $problem_time = "";
+                if ($event->value == 1) {
+                    // This event is in the "problem" state
+                    if ($prev_clock != null) {
+                        $problem_time = "<i>(lasted ". ($prev_clock - $event->clock) ." seconds)</i>";
+                    }
+                }
+
+                if ($event->acknowledged == 1) {
+                    $event->value = 2;
+                }
+            ?>
+            <li<?php echo (convertEventValue($event->value) == 'Acknowledged') ? ' style="background-color: #dff0d8;"' : ''; ?>>
+                <i class="icon-map-marker"></i>
+                <?php echo convertEventClock($event->clock)?>: <?php echo convertEventValue($event->value)?>
+                <?php echo $problem_time?>
+            </li>
+            <?php
+                $prev_clock = $event->clock;
+            }
+        } else {
+        ?>
+            <div class="alert alert-info">
+                <p>No events were found for this trigger.</p>
+            </div>
+        <?php
+        }
+    ?>
+
+</div>
+
 <?php
 	} else {
-		echo "Invalid triggerid.";
+		?>
+        <div class="alert alert-error">
+            <p>Invalid triggerID specified.</p>
+        </div>
+        <?php
 	}
 ?>

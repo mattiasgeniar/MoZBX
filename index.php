@@ -1,25 +1,10 @@
 <?php
-	require_once("config.inc.php");
-	require_once("functions.php");
-	require_once("class_zabbix.php");
+    require_once("config.inc.php");
+    require_once("functions.php");
+    require_once("class_zabbix.php");
 
-	// Debug
-	error_reporting(E_ALL);
-	ini_set("display errors", 1);
-
-	// Check for php curl module
-	if (!function_exists("curl_init")) {
-        echo "<h2>Missing PHP Curl module</h2>";
-        echo "For retrieving the Zabbix Graphs, the <a href='http://be.php.net/curl'>curl</a> module is required in PHP. Please install it and refresh this page.";
-		exit();
-	}
-
-    // Check for json module
-    if (!function_exists("json_decode")) {
-        echo "<h2>Missing PHP JSON module</h2>";
-        echo "For parsing Zabbix API info, the <a href='http://be.php.net/json_decode'>json</a> module is required in PHP. Please install it and refresh this page.";
-        exit();
-    }
+    /* Include the basic header/css/... */
+    require_once("template/header.php");
 
 	// Main Zabbix object
 	$zabbix = new Zabbix($arrSettings);
@@ -73,197 +58,32 @@
 		if (!is_array($triggersActive))
 			$triggersActive = array();
 ?>
-		<div id="home" class="current">
-			<div class="toolbar">
-                <h1><?php echo $arrSettings["mZabbixName"]?></h1>
-                <a class="button slideup" id="infoButton" href="#settings">Settings</a>
-            </div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="index.php">MoZBX - Mobile Monitoring</a>
+        </div>
+    </div>
+</div>
 
-			<ul class="rounded">
-				<li><a href="#hostgroups"><img src="images/hostgroups.png" class="icon_list">Hosts Overview</a></li>
-				<li><a href="#activetriggers"><img src="images/trigger.png" class="icon_list">Active Triggers</a> <small class="counter"><?php echo count($triggersActive)?></small></li>
-				<li><a href="<?php echo $arrSettings["urlApplication"]?>" target="_webapp"><img src="images/refresh.png" class="icon_list">Refresh page</a></li>
-			</ul>
+<div class="container">
+    <h2>Monitoring</h2>
+    <p>
+        <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="hostgroups.php">Your hosts</a><br />
+        <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="activetriggers.php">Active Triggers</a><br />
+        <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="<?php echo $arrSettings["urlApplication"]?>">Refresh page</a> <br />
+    </p>
 
-			<ul class="rounded">
-				<li><a href="<?php echo $arrSettings["urlApplication"]?>logout.php" target="_webapp"><img src="images/logout.png" class="icon_list">Logout</a></li>
-				<li><a href="feedback.php" target="_webapp"><img src="images/feedback.png" class="icon_list">Send feedback</a></li>
-				<li><a href="#about"><img src="images/about.png" class="icon_list">About version <?php echo $arrSettings["mZabbixVersion"]?></a></li>
-			</ul>
-		</div>
-
-		<div id="settings" class="selectable">
-			<div class="toolbar">
-				<h1>Settings</h1>
-				<a class="back" href="#">Home</a>
-			</div>
-
-        	This should, one day, feature some customizable settings.
-    	</div>
-
-
-		<div id="about" class="selectable">
-			<div class="toolbar">
-				<h1>About</h1>
-				<a class="back" href="#">Home</a>
-			</div>
-
-            <ul class="rounded">
-                <li class="title">Mobile Zabbix</li>
-                <li class="small">
-                    Mobile Zabbix version <b><?php echo $arrSettings["mZabbixVersion"]?></b><br />
-                    In development by <b>Mattias Geniar</b>
-                </li>
-
-                <li class="title">Changelog: version 0.4</li>
-                <li class="small">
-                    Changes for Zabbix 2.0 compatibility introduced<br />
-                    Updated jqTouch, using Zepto instead of jqTouch<br />
-                    Performance: default to not showing host-counts per hostgroup<br />
-                </li>
-
-                <li class="title">Changelog: version 0.3</li>
-                <li class="small">
-                    <u>New features</u> <br />
-                    Added support for Trigger Acknowledgements<br />
-                    Modified layout for detail items (smaller)<br />
-                    Ability to change the time-period on graphs<br />
-                    <br />
-                    <u>Bugfixes</u><br />
-                    Feedback form should work again<br />
-                    Logout button should work again<br />
-                    Refresh page should work again<br />
-                </li>
-                <li class="title">Changelog: version 0.2</li>
-                <li class="small">
-                    <u>New features</u> <br />
-                    Listing active triggers<br />
-                    Retrieving host graphs<br />
-                    Browsing hostgroups &amp; hosts<br />
-                </li>
-
-                <li class="title">Zabbix Server</li>
-                <li class="small">
-                    Zabbix API version <b><?php echo $zabbix_version?></b> on the server.<br />
-                    Retrieved data from <b><?php echo $arrSettings["zabbixHostname"]?></b>.<br />
-                    You are logged in as <b><?php echo $zabbix->getUsername()?></b>.<br />
-                    Your current session-id is <b><?php echo $zabbix->getAuthToken()?></b><br />
-                </li>
-            </ul>
-    	</div>
-
-		<div id="hostgroups" class="selectable">
-			<div class="toolbar">
-				<h1>Hostgroups</h1>
-				<a class="back" href="#">Home</a>
-			</div>
-
-
-            <!-- start iterating each hostgroup -->
-			<ul class="rounded">
-			<?php
-				$zabbixHostgroups = $zabbix->getHostgroups();
-				$zabbixHostgroups = $zabbix->sortHostgroupsByName($zabbixHostgroups);
-
-				if (is_array($zabbixHostgroups) && count($zabbixHostgroups) > 0) {
-					foreach ($zabbixHostgroups as $groupobject) {
-						$linkHostgroup = "hosts.php?hostgroupid=". $groupobject["groupid"];
-
-                        if ($arrSettings["countHostsPerGroup"] == true) {
-						    $hosts = $zabbix->getHostsByGroupId ($groupobject["groupid"]);
-						    $hosts = $zabbix->filterActiveHosts($hosts);
-						    $hostCount = is_array($hosts) ? count($hosts) : 0;
-                        } else {
-                            // Assume this hostgroup has hosts in them
-                            $hostCount = 1;
-                        }
-
-						if ($arrSettings["showEmptyHostgroups"] || $hostCount > 0) {
-                            ?>
-							<li>
-                                <a href="<?php echo $linkHostgroup?>">
-					                <img src="images/hosts.png" class="icon_list"><?php echo $groupobject["name"]?>
-                                </a>
-                            </li>
-                            <?php
-                        }
-
-					}
-				} else {
-					?>
-                    Sorry, you don't seem have access to any hostgroups.<br />
-                    <br />
-                    Does the user with which you login, have <b>API Access</b> enabled in the Zabbix <b>User Administration</b> screen?
-                    <?php
-				}
-			?>
-			</ul>
-            <!-- end iterating each hostgroup -->
-		</div>
-
-		<div id="activetriggers" class="selectable">
-			<div class="toolbar">
-				<h1>Triggers</h1>
-				<a class="back" href="#">Home</a>
-			</div>
-
-        	<?php
-				if (count($triggersActive) > 0) {
-					// First, group our active triggers per host
-					$arrSortedTriggers = array();
-
-					foreach ($triggersActive as $triggerActive) {
-						if (array_key_exists("hosts", $triggerActive) && array_key_exists(0, $triggerActive["hosts"])) {
-							$arrSortedTriggers[$triggerActive["hosts"][0]->hostid]["host"] = $triggerActive["hosts"][0]->host;
-							$arrSortedTriggers[$triggerActive["hosts"][0]->hostid]["triggers"][] =
-								array(
-									"description"	=> $triggerActive["description"],
-									"comments"		=> $triggerActive["comments"],
-									"lastchange"	=> $triggerActive["lastchange"],
-									"priority"		=> $triggerActive["priority"],
-                                    "triggerid"     => $triggerActive["triggerid"],
-								);
-						}
-					}
-
-					asort($arrSortedTriggers);
-				?>
-				<ul class="rounded">
-				<?php
-					foreach ($arrSortedTriggers as $hostid => $arrTriggers) {
-						?>
-                        <li>
-                            <a href="host.php?hostid=<?php echo $hostid?>">
-                                <img src="images/host.png" class="icon_list"><?php echo $arrTriggers["host"]?>
-                            </a>
-                        </li>
-
-                        <?php
-						foreach ($arrTriggers["triggers"] as $arrTrigger) {
-							$trigger_description = cleanTriggerDescription($arrTrigger["description"]);
-							?>
-							<li class="severity_<?php echo $arrTrigger["priority"]?>">
-                                <a href="trigger_info.php?triggerid=<?php echo $arrTrigger["triggerid"]?>&hostid=<?php echo $hostid?>">
-                                    <?php echo $trigger_description?>
-                                </a>
-                            </li>
-                            <?php
-						}
-					}
-				?>
-				</ul>
-				<?php
-				} else {
-					?>
-                    <ul class="rounded">There don't seem to be any active triggers.</ul>
-                    <?php
-				}
-			?>
-    	</div>
+    <h2>Options</h2>
+    <p>
+        <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="logout.php">Logout</a><br />
+        <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="feedback.php">Send Feedback</a><br />
+        <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="about.php">About version 0.4</a><br />
+    </p>
+</div>
 <?php
 	} else {
 		// Show login screen
-
 		$zabbixUser = isset($_GET['username']) && strlen($_GET['username']) > 0 ? $_GET['username'] : $zabbixUser;
 		$zabbixApi = isset($_GET['api_url']) && strlen($_GET['api_url']) > 0 ? $_GET['api_url'] : $zabbixApi;
 		if (strpos($zabbixApi, 'api_jsonrpc.php') === false)
@@ -271,69 +91,75 @@
 		$zabbixHideApi = isset($_GET['hideapi']) ? 'hideapi' : 'donthideapi';
 		$zabbixPass = isset($_GET['password']) ? $_GET['password'] : $arrSettings["zabbixPassword"];
 ?>
-	<div id="home_login" class="current">
-		<div class="toolbar">
-			<h1><?php echo $arrSettings["mZabbixName"]?></h1>
-		</div>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">MoZBX</a>
+    </div>
+  </div>
+</div>
 
-		<ul class="rounded">
-			<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>" class="form" >
-				<?php
-					if ($arrSettings["isHosted"] && !isset($_GET['hideapi'])) {
-						// Hosted version, show input field for the JSON API
-					?>
-						<li>
-							API URL<br />
-							<input type='text' name='zabbixApi' value='<?php echo isset($_POST['zabbixApi']) ? $_POST['zabbixApi'] : $zabbixApi ?>' style="<?php echo $arrSettings["cssStyleTextfield"]?>" />
-						</li>
-					<?php
-					} else {
-						// Fixed setup. Enter JSON API as hidden field
-					?>
-					<input type='hidden' name='zabbixApi' value='<?php echo isset($_POST['zabbixApi']) ? $_POST['zabbixApi'] : $zabbixApi ?>' />
-					<?php
-					}
-				?>
-				<li>
-					Please enter your Zabbix ID.
-				</li>
+<div class="container">
+    <h2>Login</h2>
+    <form method="post" action="index.php" class="form-horizontal" >
+        <fieldset>
+        <?php
+            if (isset($_POST['zabbixUsername'])) {
+                // POST variables set, but still showing the form. Invalid credentials?
+                if (count($zabbix->getLastError()) > 0) {
+                    $arrError = $zabbix->getLastError();
+                    $errormsg = $arrError["data"];
+                } else {
+                    $errormsg = "invalid combination";
+                }
+            ?>
+            <div class="alert alert-error">
+                <?php echo $errormsg; ?>
+            </div>
+            <?php
+            }
+            if ($arrSettings["isHosted"] && !isset($_GET['hideapi'])) {
+                // Hosted version, show input field for the JSON API
+            ?>
+            <div class="control-group">
+                <label class="control-label" for="zabbixApi">API URL</label>
+                <div class="controls">
+                    <input type="text" id="zabbixApi" name="zabbixApi" value="<?php echo isset($_POST['zabbixApi']) ? $_POST['zabbixApi'] : $zabbixApi ?>" class="input-xlarge" />
+                    <p class="help-block">The URL of your public Zabbix web interface.</p>
+                </div>
+            </div>
+            <?php
+            } else {
+                // Fixed setup. Enter JSON API as hidden field
+            ?>
+            <input type="hidden" name="zabbixApi" value="<?php echo isset($_POST['zabbixApi']) ? $_POST['zabbixApi'] : $zabbixApi ?>" />
+            <?php
+            }
+            ?>
 
-				<li>
-					User<br />
-					<input type="text" name="zabbixUsername" value="<?php echo isset($_POST['zabbixUsername']) ? $_POST['zabbixUsername'] : $zabbixUser?>" style="<?php echo $arrSettings["cssStyleTextfield"]?>" />
-				</li>
+            <div class="control-group">
+                <label class="control-label" for="zabbixUsername">Username</label>
+                <div class="controls">
+                    <input type="text" name="zabbixUsername" id="zabbixUsername" value="<?php echo isset($_POST['zabbixUsername']) ? $_POST['zabbixUsername'] : $zabbixUser?>" class="input-xlarge" />
+                </div>
+            </div>
 
-				<li>
-					Password <br />
-					<input type="password" name="zabbixPassword" value="<?php echo isset($_POST['zabbixPassword']) ? $_POST['zabbixPassword'] : $zabbixPass?>" style="<?php echo $arrSettings["cssStyleTextfield"]?>" />
-				</li>
-				<?php
-					if (isset($_POST['zabbixUsername'])) {
-						// POST variables set, but still showint the form. Invalid credentials?
-						if (count($zabbix->getLastError()) > 0) {
-							$arrError = $zabbix->getLastError();
-							$errormsg = $arrError["data"];
-							//print_r($arrError);
-						} else
-							$errormsg = "invalid combination";
-				?>
-				<li>
-					<font color="red"><?php echo $errormsg?></font>
-				</li>
-				<?php
-					}
-				?>
+            <div class="control-group">
+                <label class="control-label" for="zabbixPassword">Password</label>
+                <div class="controls">
+                    <input type="password" name="zabbixPassword" id="zabbixPassword" value="<?php echo isset($_POST['zabbixPassword']) ? $_POST['zabbixPassword'] : $zabbixPass?>" class="input-xlarge" />
+                </div>
+            </div>
 
-				<li>
-					<input type="submit" name="mZabbixLogin" value="Login" class="whiteButton" onclick="submit()" />
-				</li>
-
-			</form>
-		</ul>
-	</div>
-
-	<?php
-	}
-
+            <div class="form-actions">
+                <button type="submit" name="mZabbixLogin" class="btn btn-primary">Login</button>
+            </div>
+        </fieldset>
+    </form>
+<?php
+    }
+?>
+</div>
+<?php
 	require_once("template/footer.php");
 ?>
