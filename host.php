@@ -67,8 +67,30 @@
     <h3>Host details</h3>
     <p>
         Host: <?php echo $host->host?> <br />
-        DNS: <?php echo @isset($host->dns) ? $host->dns : '' ?> <br />
-        IP: <?php echo @isset($host->ip) ? $host->ip : '' ?> <br />
+        <?php
+            if ($zabbix->getVersion() == '1.4') {
+                /* Zabbix 2.x compatible */
+                echo "Name: ". $host->name ."<br />";
+
+                echo "<h3>Interfaces</h3>";
+                $interfaces = (array) $host->interfaces;
+                if (is_array($interfaces) && count($interfaces) > 0) {
+                    foreach ($host->interfaces as $interfaceId => $interfaceValue) {
+                        echo "DNS: ". $interfaceValue->dns ."<br />";
+                        echo "IP: ". $interfaceValue->ip ."<br />";
+                        echo "Zabbix Agent Port: ". $interfaceValue->port ."<br /><br />";
+                    }
+                } else {
+                    echo '<div class="alert alert-info">This host does not have any configured interfaces.</div>';
+                }
+            } else {
+                /* Zabbix 1.8 compatible */
+        ?>
+                DNS: <?php echo @isset($host->dns) ? $host->dns : '' ?> <br />
+                IP: <?php echo @isset($host->ip) ? $host->ip : '' ?> <br />
+        <?php
+            }
+        ?>
     </p>
 
     <?php
