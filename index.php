@@ -51,7 +51,6 @@
 
 		// Retrieve the data in one go
 		$zabbix_auth 		= $zabbix->getAuthToken();
-		$zabbix_version		= $zabbix->getVersion();
 
 		// Get all active triggers (for the counter on homepage);
 		$triggersActive 	= $zabbix->getTriggersActive($arrSettings["minimalSeverity"]);

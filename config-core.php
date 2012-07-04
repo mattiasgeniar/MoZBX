@@ -9,11 +9,6 @@ $arrSettings = array();
     ##
     ###########################################################################*/
 
-/* Zabbix version: there's a difference between how 1.8 and 1.9 or 2.0 (essentially the same)
-    handles the Graph retrieval as images
-*/
-$arrSettings["zabbixVersionCompatibility"] = "1.8";
-
 /* If set to true, will show a textfield to input the URL */
 $arrSettings["isHosted"] = true;
 

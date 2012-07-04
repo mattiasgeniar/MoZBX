@@ -306,7 +306,8 @@ class Zabbix
 
     public function getTriggersActive($minimalSeverity)
     {
-        if ($arrSettings["zabbixVersionCompatibility"] == "2.0") {
+        if ($this->getVersion() == "1.4") {
+            /* API version 1.4 = zabbix 2.0+ */
             $selectHosts = "selectHosts";
         } else {
             $selectHosts = "select_hosts";
@@ -496,7 +497,8 @@ class Zabbix
         // Lighttpd expects this header
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
 
-        if ($arrSettings["zabbixVersionCompatibility"] == "2.0") {
+        if ($this->getVersion() == '1.4') {
+            /* API Version 1.4 = Zabbix 2.0+ */
             $post_data = array(
                 'name' => $this->getUsername(),
                 'password' => $this->getPassword(),
