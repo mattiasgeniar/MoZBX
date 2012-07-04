@@ -108,6 +108,15 @@ class Zabbix
     public function setZabbixApiUrl($data)
     {
         $this->zabbix_url = $data;
+
+        /* Check if the zabbix_url even contains valid data or not */
+        if (strpos($this->zabbix_url, 'api_jsonrpc.php') === false) {
+            /* The specific PHP page for the API is not in the zabbix_url, add it ourselves */
+            if ($this->zabbix_url[strlen($this->zabbix_url) - 1] == "/")
+                $this->zabbix_url .= "api_jsonrpc.php";
+            else
+                $this->zabbix_url .= "/api_jsonrpc.php";
+        }
     }
 
     public function getUsername()
@@ -679,6 +688,7 @@ class Zabbix
             $handle = fopen($this->json_debug_path . "json.log", "a");
             fwrite($handle, "\n======= " . date("Y/m/d, H:i:s") . " =======\n");
             fwrite($handle, "Source IP: " . getVisitorIP() . "\n");
+            fwrite($handle, "API URL: " . $this->zabbix_url . "\n");
             fwrite($handle, "Action: " . $action . "\n");
             fwrite($handle, "Request: \n");
             fwrite($handle, var_export($json_data, true));
