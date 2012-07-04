@@ -26,6 +26,7 @@ class Zabbix
     private $zabbix_password = "";
     private $zabbix_title = false;
     private $zabbix_hostname = "";
+    private $zabbix_version = "";
 
     private $zabbix_json_headers = array('Content-Type: application/json-rpc',
         'User-Agent: ZabbixAPI Poller');
@@ -171,10 +172,15 @@ class Zabbix
     public function getVersion()
     {
         // Retrieve Zabbix Version
-        $result = $this->sendRequest("apiinfo.version");
+        if (strlen($zabbix_version) == 0) {
+            $result = $this->sendRequest("apiinfo.version");
+            if (isset($result->result))
+                $this->zabbix_version = $result->result;
+            else
+                $this->zabbix_version = 'unknown';
+        }
 
-        if (isset($result->result))
-            return $result->result;
+        return $this->zabbix_version;
     }
 
     public function getHostgroups()
