@@ -3,8 +3,37 @@
     require_once("functions.php");
     require_once("class_zabbix.php");
 
-    /* Include the basic header/css/... */
+    $zabbix = new Zabbix($arrSettings);
+
+    // Get values from cookies, if any
+    require_once("cookies.php");
+
+    // Populate our class
+    $zabbix->setUsername($zabbixUser);
+    $zabbix->setPassword($zabbixPass);
+    $zabbix->setZabbixApiUrl($zabbixApi);
+
+    // Login
+    if (isset($zabbixAuthHash) && strlen($zabbixAuthHash) > 0) {
+        // Try it with the authentication hash we have
+        $zabbix->setAuthToken($zabbixAuthHash);
+    } elseif (strlen($zabbix->getUsername()) > 0 && strlen($zabbix->getPassword()) > 0 && strlen($zabbix->getZabbixApiUrl()) > 0) {
+        // Or try it with our info from the cookies
+        $zabbix->login();
+    }
+
+    if (!$zabbix->isLoggedIn()) {
+        header("Location: index.php");
+        exit();
+    }
+
     require_once("template/header.php");
+
+    if ($zabbix->isLoggedIn()) {
+        // Retrieve the data in one go
+        $zabbix_auth 		= $zabbix->getAuthToken();
+        $zabbix_version		= $zabbix->getVersion();
+    }
 ?>
 
 <div class="navbar navbar-fixed-top">
