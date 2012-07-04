@@ -79,19 +79,6 @@ $arrSettings["showEmptyHostgroups"] = false;
 /* If you put it on 0, you'll show all triggers. If on 2, you'll only show warnings or higher */
 $arrSettings["minimalSeverity"] = 2; // >=
 
-/* Styling for the textfields? */
-//$arrSettings["cssStyleTextfield"]		= "border: 1px solid gray; padding: 3px 0px 3px 0px; color: white; ";	// For JQT theme
-$arrSettings["cssStyleTextfield"] = "border: 1px solid gray; padding: 3px 0px 3px 0px; color: black; "; // For APPLE theme
-
-/* Styling for the (submit) buttons? */
-$arrSettings["cssStyleButton"] = "border-width: 0 12px; display: block; padding 10px; text-align: center; font-size: 20px;";
-
-/* What theme should we use for the app? Options: jqt || apple */
-$arrSettings["appTheme"] = "apple";
-
-/* What color should our statusbar be? This should match our theme (jqt = black, apple = white) */
-$arrSettings["appStatusbarColor"] = "white";
-
 /* Google Analytics */
 $arrSettings["googleAnalytics"] = "<script type=\"text/javascript\">
 
