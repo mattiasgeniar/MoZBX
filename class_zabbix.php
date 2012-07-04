@@ -262,12 +262,24 @@ class Zabbix
 
     public function getHostById($hostid)
     {
-        $result = $this->sendRequest("host.get",
-            array(
-                "output" => "extend",
-                "hostids" => array($hostid)
-            )
-        );
+        if ($this->getVersion() == '1.4') {
+            /* Zabbix 2.x compatible */
+            $result = $this->sendRequest("host.get",
+                array(
+                    "output" => "extend",
+                    "hostids" => array($hostid),
+                    "selectInterfaces" => "extend",
+                )
+            );
+        } else {
+            /* Zabbix 1.8 compatible */
+            $result = $this->sendRequest("host.get",
+                array(
+                    "output" => "extend",
+                    "hostids" => array($hostid),
+                )
+            );
+        }
 
         if (isset($result->result)) {
             $host_object = $result->result;
