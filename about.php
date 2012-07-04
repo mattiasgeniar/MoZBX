@@ -56,33 +56,23 @@
         In development by <b>Mattias Geniar</b>
     </p>
 
+    <h3>Changelog: version 0.5</h3>
+    <p>
+        Improved Zabbix 2.0 compatibility<br />
+        Introduced entirely new layout (based on Twitter Bootstrap)<br />
+        Fix #33: SSL tracker image<br />
+        Fix #32: Home button not working <br />
+        Fix #31: Windows CRLF<br />
+        Fix #30: API URL: detect trailing slashes<br />
+        Fix #29: Automatically determine Zabbix Version (1.8/2.0)<br />
+        Fix #28: Active Triggers empty on Zabbix 2.0
+    </p>
 
     <h3>Changelog: version 0.4</h3>
     <p>
         Changes for Zabbix 2.0 compatibility introduced<br />
         Updated jqTouch, using Zepto instead of jqTouch<br />
         Performance: default to not showing host-counts per hostgroup<br />
-    </p>
-
-    <h3>Changelog: version 0.3</h3>
-    <p>
-        <h4>Features</h4>
-        Added support for Trigger Acknowledgements<br />
-        Modified layout for detail items (smaller)<br />
-        Ability to change the time-period on graphs<br />
-        <br />
-        <h4>Bugfixes</h4>
-        Feedback form should work again<br />
-        Logout button should work again<br />
-        Refresh page should work again<br />
-    </p>
-
-    <h3>Changelog: version 0.2</h3>
-    <p>
-        <h4>Features</h4>
-        Listing active triggers<br />
-        Retrieving host graphs<br />
-        Browsing hostgroups &amp; hosts<br />
     </p>
 
     <h3>Zabbix Server info</h3>
