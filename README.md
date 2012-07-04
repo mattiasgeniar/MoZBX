@@ -18,17 +18,6 @@ There's a file called "config-core.php" included. Copy that to "config.php" and 
 If you have a working webserver with PHP support, it's as easy as cloning the repository and browsing to the URL. By default, no special configs are needed.
 You can edit the config.php (a copy of config-core.php) to substitute some variables that suite your own environment.
 
-### Attention Zabbix 2.0 users
-
-While MoZBX is compatible with both 1.8 and 1.9 (release candidate for 2.0), it does require a very important configuration parameter in the config.php file.
-
-<pre>
-  $arrSettings["zabbixVersionCompatibility"] = '1.8';
-  $arrSettings["zabbixVersionCompatibility"] = '2.0';
-</pre>
-
-You must set the Zabbix Version accordingly or the displaying of graphs will not work.
-
 ### About the author
 
 - Built by [Mattias Geniar](http://mattiasgeniar.be) (twitter: [@mattiasgeniar](https://twitter.com/#!/mattiasgeniar) )
