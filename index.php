@@ -77,7 +77,7 @@
     <p>
         <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="logout.php">Logout</a><br />
         <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="feedback.php">Send Feedback</a><br />
-        <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="about.php">About version 0.4</a><br />
+        <a class="btn btn-large" style='padding: 15px; width:250px; margin-top: 7px;' href="about.php">About version <?php echo $arrSettings["mZabbixVersion"]; ?></a><br />
     </p>
 </div>
 <?php
