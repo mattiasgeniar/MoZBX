@@ -34,6 +34,9 @@ $arrSettings["zabbixApiUrl"] = "http://www.mozbx.net/zabbix/";
 $arrSettings["jsonDebug"] = true;
 $arrSettings["jsonDebug_path"] = "/home/mattias/Development/MoZBX/";
 
+/* Turn on verbose debugging output of curl to std error */
+$arrSettings["curlVerbose"] = false;
+
 /* How long should our cookies be valid? */
 $arrSettings["cookieExpire"] = time() + 60 * 60 * 7;
 
