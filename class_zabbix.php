@@ -340,6 +340,7 @@ class Zabbix
                 "filter"        => array(
                                             "value" => 1, /* Filter by trigger state: 1 = problem */
                 ),
+                "expandDescription" => 1, /* Expand macros in the description. Triggers with macros don't get listed at all, if not enabled. */
                 "withLastEventUnacknowledged" => 1, /* Only the unacknowledged triggers */
             )
         );
@@ -365,6 +366,7 @@ class Zabbix
             array("output" => "extend",
                 "triggerids" => array($triggerid),
                 "hostids" => array($hostid),
+                "expandDescription" => 1, /* expand macros in the description */
             )
         );
 
