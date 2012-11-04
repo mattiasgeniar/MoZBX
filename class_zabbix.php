@@ -172,7 +172,7 @@ class Zabbix
     public function getVersion()
     {
         // Retrieve Zabbix Version
-        if (strlen($zabbix_version) == 0) {
+        if (!isset($zabbix_version) || strlen($zabbix_version) == 0) {
             $result = $this->sendRequest("apiinfo.version");
             if (isset($result->result))
                 $this->zabbix_version = $result->result;
