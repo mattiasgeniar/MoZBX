@@ -26,8 +26,8 @@
 
     require_once("template/header.php");
 
-	$zabbixHostId = (int) $_GET['hostid'];
-    $zabbixHostGroupId = (int) $_GET['groupid'];
+	$zabbixHostId = (string) $_GET['hostid'];
+    $zabbixHostGroupId = (string) $_GET['groupid'];
     $zabbixHostGroupName = (string) urldecode($_GET['groupname']);
 	if ($zabbixHostId > 0) {
 		$host 		= $zabbix->getHostById($zabbixHostId);
