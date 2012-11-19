@@ -25,8 +25,8 @@
 		exit();
 	}
 
-	$graphid = (int) $_GET['graphid'];
-    $graphperiod = (int) $_GET['period'];
+	$graphid = (string) $_GET['graphid'];
+    $graphperiod = (string) $_GET['period'];
 	
 	// Set correct header
 	header("Content-Type: image/jpg");

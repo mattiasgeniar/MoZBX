@@ -29,7 +29,7 @@
 
     require_once("template/header.php");
 
-	$zabbixHostgroupId = (int) $_GET['hostgroupid'];
+	$zabbixHostgroupId = (string) $_GET['hostgroupid'];
 	if ($zabbixHostgroupId > 0) {
 		$hostgroup 	= $zabbix->getHostgroupById($zabbixHostgroupId);
 		$hosts 		= $zabbix->getHostsByGroupId ($zabbixHostgroupId);

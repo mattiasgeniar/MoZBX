@@ -47,7 +47,7 @@
     }
     
 	if ($ack_ok) {
-        header("Location: trigger_info.php?triggerid=". (int) $_POST['triggerid']);
+        header("Location: trigger_info.php?triggerid=". (string) $_POST['triggerid']);
         exit();
     } else {
         /* Something, somewhere, went terribly wrong */
