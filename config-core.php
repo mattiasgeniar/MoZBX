@@ -32,7 +32,7 @@ $arrSettings["zabbixApiUrl"] = "http://www.mozbx.net/zabbix/";
 
 /* Debug JSON requests: echo all sent & received data */
 $arrSettings["jsonDebug"] = true;
-$arrSettings["jsonDebug_path"] = "/home/mattias/Development/MoZBX/";
+$arrSettings["jsonDebug_path"] = "/tmp/mozbx/";
 
 /* How long should our cookies be valid? */
 $arrSettings["cookieExpire"] = time() + 60 * 60 * 7;

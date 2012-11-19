@@ -26,8 +26,8 @@
 
     require_once("template/header.php");
 
-	$zabbixTriggerId = (int) $_GET['triggerid'];
-    $zabbixHostId = (int) $_GET['hostid'];
+	$zabbixTriggerId = (string) $_GET['triggerid'];
+    $zabbixHostId = (string) $_GET['hostid'];
 	if ($zabbixTriggerId > 0 && $zabbixHostId > 0) {
         // Retrieve the trigger information
         $trigger = $zabbix->getTriggerByTriggerAndHostId($zabbixTriggerId, $zabbixHostId);
