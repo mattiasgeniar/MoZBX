@@ -31,7 +31,6 @@ class Zabbix
     private $zabbix_json_headers = array('Content-Type: application/json-rpc',
         'User-Agent: ZabbixAPI Poller');
     private $zabbix_curl_options = array(CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_VERBOSE => true,
         /*CURLOPT_HEADER => true, */
         CURLOPT_TIMEOUT => 30,
         CURLOPT_CONNECTTIMEOUT => 5,
@@ -41,6 +40,7 @@ class Zabbix
         CURLOPT_FRESH_CONNECT => true
     );
     private $json_debug = null;
+    private $curl_verbose = false;
     private $zabbix_tmp_cookies = "";
     private $zabbix_url_graph = "";
     private $zabbix_url_index = "";
@@ -58,7 +58,6 @@ class Zabbix
     private $last_error_message = "";
     private $last_error_data = "";
     private $last_error_code = "";
-
 
     /* ##########################################################
          ##
@@ -80,6 +79,7 @@ class Zabbix
         $this->zabbix_url_index = $arrSettings["zabbixApiUrl"] . "index.php";
         $this->json_debug = $arrSettings["jsonDebug"];
         $this->json_debug_path = $arrSettings["jsonDebug_path"];
+        $this->curl_verbose = $arrSettings["curlVerbose"];
     }
 
 
@@ -172,7 +172,7 @@ class Zabbix
     public function getVersion()
     {
         // Retrieve Zabbix Version
-        if (strlen($zabbix_version) == 0) {
+        if (!isset($zabbix_version) || strlen($zabbix_version) == 0) {
             $result = $this->sendRequest("apiinfo.version");
             if (isset($result->result))
                 $this->zabbix_version = $result->result;
@@ -340,6 +340,7 @@ class Zabbix
                 "filter"        => array(
                                             "value" => 1, /* Filter by trigger state: 1 = problem */
                 ),
+                "expandDescription" => 1, /* Expand macros in the description. Triggers with macros don't get listed at all, if not enabled. */
                 "withLastEventUnacknowledged" => 1, /* Only the unacknowledged triggers */
             )
         );
@@ -365,6 +366,7 @@ class Zabbix
             array("output" => "extend",
                 "triggerids" => array($triggerid),
                 "hostids" => array($hostid),
+                "expandDescription" => 1, /* expand macros in the description */
             )
         );
 
@@ -509,7 +511,7 @@ class Zabbix
         // Send a POST request
         curl_setopt($ch, CURLOPT_POST, true);
         // Increase verbosity for debugging
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_VERBOSE, $this->curl_verbose);
         // Don't validate SSL certs as must Zabbix installs that have an SSL connection are self-signed
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         // Lighttpd expects this header
@@ -689,6 +691,7 @@ class Zabbix
         // Build our encoded JSON
         $json_data = $this->genericJSONPost($action, $parameters);
 
+        $curl_opts[CURLOPT_VERBOSE] = $this->curl_verbose;
         $curl_opts[CURLOPT_HTTPHEADER] = $json_headers;
         $curl_opts[CURLOPT_CUSTOMREQUEST] = "POST";
         $curl_opts[CURLOPT_POSTFIELDS] = is_array($json_data) ? http_build_query($json_data) : $json_data;
