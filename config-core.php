@@ -16,6 +16,10 @@ $arrSettings["isHosted"] = true;
 /* Note: if you set this to false, everyone visiting this URL will have access !! */
 $arrSettings["promptCredentials"] = true;
 
+/* If set to true, provides HTTP basic auth credentials to cURL */
+/* Useful if your zabbix server is protected by HTTP Auth instead of, or in addition to form authentication */
+$arrSettings["useHttpAuth"] = false;
+
 /* Your Zabbix's server's hostname: used in the Zabbix Cookie Forging for retrieving graphs */
 /* This needs to match your server's hostname. Ie: http://zabbix.lab.mojah.be/zabbix/index.php */
 /* Would mean your zabbixHostname is 'zabbix.lab.mojah.be' (the FQDN) */

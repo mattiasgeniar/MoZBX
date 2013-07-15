@@ -44,7 +44,7 @@ class Zabbix
     private $zabbix_tmp_cookies = "";
     private $zabbix_url_graph = "";
     private $zabbix_url_index = "";
-
+    private $http_auth = false;
 
     /* ##########################################################
          ##
@@ -80,6 +80,7 @@ class Zabbix
         $this->json_debug = $arrSettings["jsonDebug"];
         $this->json_debug_path = $arrSettings["jsonDebug_path"];
         $this->curl_verbose = $arrSettings["curlVerbose"];
+        $this->http_auth = $arrSettings["useHttpAuth"];
     }
 
 
@@ -690,6 +691,11 @@ class Zabbix
 
         // Build our encoded JSON
         $json_data = $this->genericJSONPost($action, $parameters);
+
+        if ($this->http_auth) {
+            $curl_opts[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
+            $curl_opts[CURLOPT_USERPWD] = $this->zabbix_username . ':' . $this->zabbix_password;
+        }
 
         $curl_opts[CURLOPT_VERBOSE] = $this->curl_verbose;
         $curl_opts[CURLOPT_HTTPHEADER] = $json_headers;
