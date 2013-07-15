@@ -539,6 +539,11 @@ class Zabbix
         curl_setopt($ch, CURLOPT_COOKIEJAR, $filename_cookie);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $filename_cookie);
 
+        if ($this->http_auth) {
+            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($ch, CURLOPT_USERPWD, $this->zabbix_username . ':' . $this->zabbix_password);
+        }
+
         // Login
         curl_exec($ch);
 
@@ -704,6 +709,7 @@ class Zabbix
 
         curl_setopt_array($curl_init, $curl_opts);
         $ret = curl_exec($curl_init);
+        $http_status = curl_getinfo($curl_init, CURLINFO_HTTP_CODE);
         curl_close($curl_init);
 
         if ($this->json_debug) {
@@ -734,6 +740,14 @@ class Zabbix
         if (isset($result->error)) {
             $this->setLastError($result->error->code, $result->error->message, $result->error->data);
             return false;
+        } else if ($http_status != 200) {
+            switch ($http_status) {
+                case 401:
+                    $this->setLastError($http_status, 'Unable to authenticate with server.', 'Unable to authenticate with server.');
+                    break;
+                default:
+                    $this->setLastError($http_status, 'Unhandled error code: '.$http_status, 'Unhandled error code: '.$http_status);
+            }
         } else {
             return $result;
         }
