@@ -69,7 +69,7 @@ class Zabbix
 
     public function __construct($arrSettings)
     {
-        $this->zabbix_url = $arrSettings["zabbixApiUrl"];
+        $this->zabbix_url = $arrSettings["zabbixApiUrl"] . "api_jsonrpc.php";
         $this->zabbix_hostname = $arrSettings["zabbixHostname"];
         $this->zabbix_username = $arrSettings["zabbixUsername"];
         $this->zabbix_password = $arrSettings["zabbixPassword"];
