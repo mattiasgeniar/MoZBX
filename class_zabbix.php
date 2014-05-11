@@ -269,7 +269,7 @@ class Zabbix
 
     public function getHostById($hostid)
     {
-        if (in_array(substr($this->getVersion(), 0, 3), array('2.0', '1.4'))) {
+        if (in_array(substr($this->getVersion(), 0, 3), array('2.2', '2.0', '1.4'))) {
             /* Zabbix 2.x compatible: API version 2.0 or 1.4 */
             $result = $this->sendRequest("host.get",
                 array(
